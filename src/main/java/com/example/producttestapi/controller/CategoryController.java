@@ -30,6 +30,10 @@ public class CategoryController {
     public ResponseEntity<?> getCategory(@PathVariable("id") int id) {
         return ResponseEntity.ok().body(categoryService.getCategory(id));
     }
+    @GetMapping("/main-categories")
+    public ResponseEntity<?> getAllMainCategories(){
+        return ResponseEntity.ok().body(categoryService.getOnlyMainCategories());
+    }
 
     @PostMapping
     public ResponseEntity<?> createCategory(@RequestBody Category category) {

@@ -34,8 +34,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category createCategory(Category category) {
-        return categoryRepo.save(category);
+    public List<Category> getOnlyMainCategories() {
+        return categoryRepo.findParentCategory();
+    }
+
+    @Override
+    public void createCategory(Category category) {
+        categoryRepo.save(category);
     }
 
     @Override
