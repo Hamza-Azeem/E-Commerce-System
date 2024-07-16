@@ -15,11 +15,13 @@ import java.util.Optional;
 public class ProductServiceImpl implements ProductService {
     private final ProductRepo productRepo;
     private final VoucherService voucherService;
+    private final CategoryService categoryService;
 
     @Autowired
-    public ProductServiceImpl(ProductRepo productRepo, VoucherService voucherService) {
+    public ProductServiceImpl(ProductRepo productRepo, VoucherService voucherService, CategoryService categoryService) {
         this.productRepo = productRepo;
         this.voucherService = voucherService;
+        this.categoryService = categoryService;
     }
 
     @Override
@@ -42,6 +44,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getProductsByCategory(int categoryID) {
+        categoryService.getCategory(categoryID);
         List<Product> products = productRepo.findByCategory(categoryID);
         products.forEach(this::applyVoucherDiscount);
         return products;
