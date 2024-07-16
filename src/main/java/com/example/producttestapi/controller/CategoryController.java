@@ -22,7 +22,7 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Category>> getAllCategories() {
+    public ResponseEntity<List<?>> getAllCategories() {
         return ResponseEntity.ok().body(categoryService.getAllCategory());
     }
 
@@ -33,6 +33,10 @@ public class CategoryController {
     @GetMapping("/main-categories")
     public ResponseEntity<?> getAllMainCategories(){
         return ResponseEntity.ok().body(categoryService.getOnlyMainCategories());
+    }
+    @GetMapping("/{id}/sub-categories")
+    public ResponseEntity<?> getAllSubCategoriesOfParentById(@PathVariable int id){
+        return ResponseEntity.ok().body(categoryService.getAllSubCategoriesOfParentCategoryById(id));
     }
 
     @PostMapping

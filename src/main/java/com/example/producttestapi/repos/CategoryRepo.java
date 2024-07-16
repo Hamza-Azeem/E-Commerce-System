@@ -11,4 +11,6 @@ import java.util.List;
 public interface CategoryRepo extends JpaRepository<Category, Integer> {
     @Query(value ="SELECT * FROM category WHERE parent_category_id is null" , nativeQuery = true)
     List<Category> findParentCategory();
+    @Query(value = "SELECT * FROM category WHERE parent_category_id =:id",nativeQuery = true)
+    List<Category> findSubCategoriesOfParentCategory(int id);
 }
