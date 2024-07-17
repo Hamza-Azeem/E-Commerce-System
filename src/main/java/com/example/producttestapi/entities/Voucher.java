@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,8 +20,8 @@ public class Voucher {
     @Column(unique = true)
     private String code;
     private BigDecimal discount;
-    private String expireDate;
-    @OneToMany(mappedBy = "voucherCode")
+    private LocalDate expireDate;
+    @OneToMany(mappedBy = "voucherCode", cascade = CascadeType.DETACH)
     @JsonIgnore
     private Set<Product> products;
 

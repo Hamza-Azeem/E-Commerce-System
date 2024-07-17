@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,7 +74,7 @@ public class ProductServiceImpl implements ProductService {
     private void applyVoucherDiscount(Product product) {
         if (product.getVoucherCode() != null) {
             Voucher voucher = voucherService.findVoucherById(product.getVoucherCode().getId());
-            if (voucher != null) {
+            if (voucher != null && voucher.getExpireDate().isAfter(LocalDate.now())) {
                 BigDecimal discount = voucher.getDiscount();
                 BigDecimal productPrice = BigDecimal.valueOf(product.getPrice());
                 // price - (price * (discount/100))
