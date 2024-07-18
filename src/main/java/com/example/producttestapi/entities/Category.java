@@ -28,6 +28,15 @@ public class Category {
     private Category parentCategory;
     @OneToMany(mappedBy = "parentCategory", fetch = FetchType.LAZY)
     private Set<Category> subCategories;
+
+    public Category(String name) {
+        this.name = name;
+    }
+
+    public Category() {
+
+    }
+
     public void addProduct(Product product){
         if(products == null){
             products = new ArrayList<>();

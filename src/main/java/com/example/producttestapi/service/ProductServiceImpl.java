@@ -71,7 +71,7 @@ public class ProductServiceImpl implements ProductService {
         }
         productRepo.deleteById(id);
     }
-    private void applyVoucherDiscount(Product product) {
+    protected void applyVoucherDiscount(Product product) {
         if (product.getVoucherCode() != null) {
             Voucher voucher = voucherService.findVoucherById(product.getVoucherCode().getId());
             if (voucher != null && voucher.getExpireDate().isAfter(LocalDate.now())) {

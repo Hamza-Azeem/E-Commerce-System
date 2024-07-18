@@ -25,6 +25,22 @@ public class Voucher {
     @JsonIgnore
     private Set<Product> products;
 
+    public Voucher() {}
+
+    public Voucher(String code, BigDecimal discount, LocalDate expireDate) {
+        this.code = code;
+        this.discount = discount;
+        this.expireDate = expireDate;
+    }
+    public Voucher(Long id, String code, BigDecimal discount, LocalDate expireDate) {
+        this.id = id;
+        this.code = code;
+        this.discount = discount;
+        this.expireDate = expireDate;
+    }
+
+
+
     public void addProduct(Product product){
         if(products == null){
             products = new HashSet<>();

@@ -22,4 +22,36 @@ public class Product {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "voucher_id")
     private Voucher voucherCode;
+    public Product() {
+    }
+    public Product(String name, String description, double price) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
+    public Product(String name, String description, double price, Category category) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+    }
+
+    public Product(String name, String description, double price, Voucher voucherCode) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.voucherCode = voucherCode;
+    }
+
+
+
+    public Product(String name, String description, double price, Category category, Voucher voucherCode) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+        this.voucherCode = voucherCode;
+    }
+
+
 }
