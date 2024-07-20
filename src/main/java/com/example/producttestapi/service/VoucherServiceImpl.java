@@ -1,11 +1,14 @@
 package com.example.producttestapi.service;
 
+import com.example.producttestapi.entities.Product;
 import com.example.producttestapi.entities.Voucher;
 import com.example.producttestapi.exception.ResourceNotFoundException;
 import com.example.producttestapi.repos.VoucherRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,6 +55,25 @@ public class VoucherServiceImpl implements VoucherService {
             throw new ResourceNotFoundException("Voucher not found with id: " + id);
         }
         voucherRepo.deleteById(id);
+    }
+
+    @Override
+    public void applyVoucherOnProduct(Product product) {
+        Voucher voucher = product.getVoucherCode();
+        if(voucher == null){
+            return;
+        }
+        if(!voucherRepo.existsById(voucher.getId())) {
+            throw new ResourceNotFoundException("Voucher not found with this code : " + voucher.getId());
+        }else if(voucher.getExpireDate().isBefore(LocalDate.now())){
+            deleteVoucher(voucher.getId());
+            return;
+        }
+        BigDecimal discount = voucher.getDiscount();
+        BigDecimal productPrice = BigDecimal.valueOf(product.getPrice());
+        // price - (price * (discount/100))
+        BigDecimal discountedPrice = productPrice.subtract(productPrice.multiply(discount.divide(BigDecimal.valueOf(100))));
+        product.setPrice(discountedPrice.doubleValue());
     }
 }
 

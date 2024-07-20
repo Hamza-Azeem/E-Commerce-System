@@ -8,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
@@ -37,39 +36,24 @@ class ProductServiceImplTest {
     @Test
     void getAllProductsTest() {
         // Arrange
-        long id = faker.number().randomNumber();
-        Voucher voucher = new Voucher(
-                id,
-                "discount20",
-                BigDecimal.valueOf(20),
-                LocalDate.now().plusDays(1)
-        );
         Product product = new Product(
-                "name",
+                "product1",
                 "description",
-                100,
-                voucher
+                25
         );
         Product product2 = new Product(
-                "name2",
+                "product2",
                 "description2",
-                200,
-                voucher
+                252
         );
         List<Product> products = Arrays.asList(product, product2);
-        when(productRepo.findAll()).thenReturn(products);
-        when(voucherService.findVoucherById(id)).thenReturn(voucher);
         // Act
-        List<Product> actual = underTest.getAllProducts();
+        when(productRepo.findAll()).thenReturn(products);
+        underTest.getAllProducts();
         // Assert
         verify(productRepo).findAll();
-        assertThat(actual).hasSize(2);
-        assertThat(actual.get(0).getName()).isEqualTo(product.getName());
-        assertThat(actual.get(0).getDescription()).isEqualTo(product.getDescription());
-        assertThat(actual.get(0).getPrice()).isEqualTo(80);
-        assertThat(actual.get(1).getName()).isEqualTo(product2.getName());
-        assertThat(actual.get(1).getDescription()).isEqualTo(product2.getDescription());
-        assertThat(actual.get(1).getPrice()).isEqualTo(160);
+        verify(voucherService).applyVoucherOnProduct(product);
+        verify(voucherService).applyVoucherOnProduct(product2);
 
     }
 }
