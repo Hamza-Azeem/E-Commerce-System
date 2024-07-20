@@ -33,7 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDto getCategory(int id) {
         Optional<Category> optionalCategory = categoryRepo.findById(id);
-        if (!optionalCategory.isPresent()) {
+        if (optionalCategory.isEmpty()) {
             throw new ResourceNotFoundException("Category not found with id: " + id);
         }
         return convertToCategoryDto(optionalCategory.get());

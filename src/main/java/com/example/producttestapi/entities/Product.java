@@ -53,5 +53,12 @@ public class Product {
         this.voucherCode = voucherCode;
     }
 
-
+    public Product(int id, String name, String description, double price, Category category, Voucher voucherCode) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+        this.voucherCode = voucherCode;
+    }
 }

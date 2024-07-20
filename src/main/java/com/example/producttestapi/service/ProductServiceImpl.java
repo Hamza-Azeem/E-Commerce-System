@@ -41,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
             throw new ResourceNotFoundException("Product not found with id: " + id);
         }
         Product product = optionalProduct.get();
-//        applyVoucherDiscount(product);
+        voucherService.applyVoucherOnProduct(product);
         return product;
     }
 
@@ -49,7 +49,9 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getProductsByCategory(int categoryID) {
         categoryService.getCategory(categoryID);
         List<Product> products = productRepo.findByCategory(categoryID);
-//        products.forEach(this::applyVoucherDiscount);
+        for(Product product : products) {
+            voucherService.applyVoucherOnProduct(product);
+        }
         return products;
     }
 
@@ -73,16 +75,4 @@ public class ProductServiceImpl implements ProductService {
         }
         productRepo.deleteById(id);
     }
-//    protected void applyVoucherDiscount(Product product) {
-//        if (product.getVoucherCode() != null) {
-//            Voucher voucher = voucherService.findVoucherById(product.getVoucherCode().getId());
-//            if (voucher != null && voucher.getExpireDate().isAfter(LocalDate.now())) {
-//                BigDecimal discount = voucher.getDiscount();
-//                BigDecimal productPrice = BigDecimal.valueOf(product.getPrice());
-//                // price - (price * (discount/100))
-//                BigDecimal discountedPrice = productPrice.subtract(productPrice.multiply(discount.divide(BigDecimal.valueOf(100))));
-//                product.setPrice(discountedPrice.doubleValue());
-//            }
-//        }
-//    }
 }
