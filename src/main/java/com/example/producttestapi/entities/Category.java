@@ -29,12 +29,30 @@ public class Category {
     @OneToMany(mappedBy = "parentCategory", fetch = FetchType.LAZY)
     private Set<Category> subCategories;
 
+    public Category() {
+
+    }
     public Category(String name) {
         this.name = name;
     }
 
-    public Category() {
+    public Category(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
+    public Category(String name, Category parentCategory, Set<Category> subCategories) {
+        this.name = name;
+        this.parentCategory = parentCategory;
+        this.subCategories = subCategories;
+    }
+
+    public Category(int id, String name, List<Product> products, Category parentCategory, Set<Category> subCategories) {
+        this.id = id;
+        this.name = name;
+        this.products = products;
+        this.parentCategory = parentCategory;
+        this.subCategories = subCategories;
     }
 
     public void addProduct(Product product){
