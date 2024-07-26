@@ -7,6 +7,7 @@ import com.example.producttestapi.repos.CategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -69,6 +70,18 @@ public class CategoryServiceImpl implements CategoryService {
             throw new ResourceNotFoundException("Category not found with id: " + id);
         }
         categoryRepo.deleteById(id);
+    }
+
+    @Override
+    public List<CategoryDto> findAllMainCategoriesAndTheirSubCategories() {
+        List<Category> mainCategories = categoryRepo.findParentCategory();
+        List<CategoryDto> result = new ArrayList<>();
+        for(Category category : mainCategories) {
+            CategoryDto categoryDto = convertToCategoryDto(category);
+            categoryDto.setSubCategories(category.getSubCategories());
+            result.add(categoryDto);
+        }
+        return result;
     }
 
 }

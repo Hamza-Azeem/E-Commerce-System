@@ -38,6 +38,10 @@ public class CategoryController {
     public ResponseEntity<?> getAllSubCategoriesOfParentById(@PathVariable int id){
         return ResponseEntity.ok().body(categoryService.getAllSubCategoriesOfParentCategoryById(id));
     }
+    @GetMapping("/main-sub-categories")
+    public ResponseEntity<?> getAllMainAndSubCategories(){
+        return ResponseEntity.ok().body(categoryService.findAllMainCategoriesAndTheirSubCategories());
+    }
 
     @PostMapping
     public ResponseEntity<?> createCategory(@RequestBody Category category) {

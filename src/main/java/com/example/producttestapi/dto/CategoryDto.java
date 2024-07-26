@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -14,5 +14,5 @@ import java.util.List;
 @Builder
 public class CategoryDto {
     private String name;
-//    private List<Category> subCategories;
+    private Set<Category> subCategories;
 }

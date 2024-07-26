@@ -123,6 +123,10 @@ class CategoryServiceImplTest {
                 .isInstanceOf(ResourceNotFoundException.class)
                 .hasMessage("Category not found with id: " + id);
     }
+    @Test
+    void findAllMainCategoriesAndTheirSubCategoriesTest(){
+        // Todo
+    }
 
     @Test
     void createCategoryTest() {

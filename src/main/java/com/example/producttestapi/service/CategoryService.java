@@ -4,7 +4,6 @@ import com.example.producttestapi.dto.CategoryDto;
 import com.example.producttestapi.entities.Category;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CategoryService {
     List<CategoryDto> getAllCategory();
@@ -14,4 +13,5 @@ public interface CategoryService {
     void createCategory(Category category);
 
     void deleteCategory(int id);
+    List<CategoryDto> findAllMainCategoriesAndTheirSubCategories();
 }
