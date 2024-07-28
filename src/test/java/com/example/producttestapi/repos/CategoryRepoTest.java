@@ -40,7 +40,7 @@ public class CategoryRepoTest extends AbstractTestcontainers {
         );
         underTest.saveAll(Arrays.asList(parentCategory, subCategory));
         // Act
-         List<Category> actual = underTest.findParentCategory();
+         List<Category> actual = underTest.findMainCategories();
         // Assert
         assertThat(actual).isNotNull();
         assertThat(actual).hasSize(1);

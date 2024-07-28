@@ -1,18 +1,18 @@
 package com.example.producttestapi.dto;
 
 import com.example.producttestapi.entities.Category;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @Builder
+@ToString
 public class CategoryDto {
     private String name;
-    private Set<Category> subCategories;
+    private List<CategoryDto> subCategories = new ArrayList<>();
+
 }

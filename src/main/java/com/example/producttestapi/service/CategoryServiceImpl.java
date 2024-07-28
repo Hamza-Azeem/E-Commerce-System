@@ -7,9 +7,7 @@ import com.example.producttestapi.repos.CategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static com.example.producttestapi.mapper.CategoryMapper.convertToCategoryDto;
@@ -42,7 +40,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryDto> getOnlyMainCategories() {
-        return categoryRepo.findParentCategory()
+        return categoryRepo.findMainCategories()
                 .stream().map(category -> convertToCategoryDto(category))
                 .collect(Collectors.toList());
     }
@@ -73,15 +71,24 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<CategoryDto> findAllMainCategoriesAndTheirSubCategories() {
-        List<Category> mainCategories = categoryRepo.findParentCategory();
+    public  List<CategoryDto> GenerateCategoriesTree() {
+        List<Category> categoryList = categoryRepo.findAll();
+        Map<Integer, CategoryDto> categoryDtoMap = new HashMap<>();
         List<CategoryDto> result = new ArrayList<>();
-        for(Category category : mainCategories) {
-            CategoryDto categoryDto = convertToCategoryDto(category);
-            categoryDto.setSubCategories(category.getSubCategories());
-            result.add(categoryDto);
+        for (Category category : categoryList) {
+            categoryDtoMap.put(category.getId(), convertToCategoryDto(category));
+        }
+        for(Category category: categoryList) {
+            CategoryDto categoryDto = categoryDtoMap.get(category.getId());
+            if(category.getParentCategory() != null){
+                CategoryDto parentCategory = categoryDtoMap.get(category.getParentCategory().getId());
+                parentCategory.getSubCategories().add(categoryDto);
+            }else{
+                result.add(categoryDto);
+            }
         }
         return result;
     }
+
 
 }

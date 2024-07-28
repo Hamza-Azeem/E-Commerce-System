@@ -30,17 +30,17 @@ public class CategoryController {
     public ResponseEntity<?> getCategory(@PathVariable("id") int id) {
         return ResponseEntity.ok().body(categoryService.getCategory(id));
     }
-    @GetMapping("/main-categories")
+    @GetMapping("/main")
     public ResponseEntity<?> getAllMainCategories(){
         return ResponseEntity.ok().body(categoryService.getOnlyMainCategories());
     }
-    @GetMapping("/{id}/sub-categories")
+    @GetMapping("/{id}/sub")
     public ResponseEntity<?> getAllSubCategoriesOfParentById(@PathVariable int id){
         return ResponseEntity.ok().body(categoryService.getAllSubCategoriesOfParentCategoryById(id));
     }
-    @GetMapping("/main-sub-categories")
-    public ResponseEntity<?> getAllMainAndSubCategories(){
-        return ResponseEntity.ok().body(categoryService.findAllMainCategoriesAndTheirSubCategories());
+    @GetMapping("/tree")
+    public ResponseEntity<?> getCategoriesTree(){
+        return ResponseEntity.ok().body(categoryService.GenerateCategoriesTree());
     }
 
     @PostMapping
