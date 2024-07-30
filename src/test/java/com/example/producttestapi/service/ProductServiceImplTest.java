@@ -1,5 +1,6 @@
 package com.example.producttestapi.service;
 
+import com.example.producttestapi.dto.ProductDto;
 import com.example.producttestapi.entities.Product;
 import com.example.producttestapi.exception.ResourceNotFoundException;
 import com.example.producttestapi.repos.ProductRepo;
@@ -74,15 +75,12 @@ class ProductServiceImplTest {
         );
         when(productRepo.findById(id)).thenReturn(Optional.of(product));
         // Act
-        Product actual = underTest.getProductById(id);
+        ProductDto actual = underTest.getProductById(id);
         // Assert
         verify(voucherService).applyVoucherOnProduct(product);
-        assertThat(actual.getId()).isEqualTo(id);
         assertThat(actual.getName()).isEqualTo(name);
         assertThat(actual.getDescription()).isEqualTo(description);
         assertThat(actual.getPrice()).isEqualTo(price);
-        assertThat(actual.getCategory()).isNull();
-        assertThat(actual.getVoucherCode()).isNull();
     }
     @Test
     void getProductByIdWillThrowExceptionWhenProductNotFound() {
@@ -177,7 +175,14 @@ class ProductServiceImplTest {
     void deleteProductTest() {
         // Arrange
         int id = faker.number().randomDigit();
-        when(productRepo.existsById(id)).thenReturn(true);
+        Product product = new Product(
+                id,
+                "product1",
+                faker.name().firstName(),
+                faker.number().randomDigit(),
+                null,
+                null);
+        when(productRepo.findById(id)).thenReturn(Optional.of(product));
         // Act
         underTest.deleteProduct(id);
         // Assert
@@ -187,7 +192,7 @@ class ProductServiceImplTest {
     void deleteProductWillThrowExceptionWhenProductNotFound() {
         // Arrange
         int id = faker.number().randomDigit();
-        when(productRepo.existsById(id)).thenReturn(false);
+        when(productRepo.findById(id)).thenReturn(Optional.empty());
         // Assert
         assertThatThrownBy(()->underTest.deleteProduct(id))
                 .isInstanceOf(ResourceNotFoundException.class)

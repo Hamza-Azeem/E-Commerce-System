@@ -8,5 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class ProductDto {
-    // Todo
+    private String name;
+    private String description;
+    private double price;
 }
