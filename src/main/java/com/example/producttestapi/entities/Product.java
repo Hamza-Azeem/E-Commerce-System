@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-
 @Entity
 @Setter
 @Getter
@@ -16,7 +14,7 @@ public class Product {
     private String name;
     private String description;
     private double price;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category ;
     @ManyToOne(fetch = FetchType.EAGER)

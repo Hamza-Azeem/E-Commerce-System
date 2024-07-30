@@ -1,5 +1,6 @@
 package com.example.producttestapi.controller;
 
+import com.example.producttestapi.dto.ProductDto;
 import com.example.producttestapi.entities.Product;
 import com.example.producttestapi.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> getAllProducts() {
+    public ResponseEntity<List<ProductDto>> getAllProducts() {
         return ResponseEntity.ok().body(productService.getAllProducts());
     }
 
@@ -32,7 +33,7 @@ public class ProductController {
     }
 
     @GetMapping("/category/{categoryID}")
-    public ResponseEntity<List<Product>> getProductsByCategory(@PathVariable("categoryID") int categoryID) {
+    public ResponseEntity<List<ProductDto>> getProductsByCategory(@PathVariable("categoryID") int categoryID) {
         return ResponseEntity.ok().body(productService.getProductsByCategory(categoryID));
     }
 
@@ -43,7 +44,7 @@ public class ProductController {
     }
 
     @PutMapping
-    public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
+    public ResponseEntity<ProductDto> updateProduct(@RequestBody Product product) {
         return ResponseEntity.ok().body(productService.updateProduct(product));
     }
 
