@@ -63,12 +63,14 @@ public class VoucherServiceImpl implements VoucherService {
         if(voucher == null){
             return;
         }
-        if(!voucherRepo.existsById(voucher.getId())) {
+        Optional<Voucher> voucherOptional = voucherRepo.findById(voucher.getId());
+        if(voucherOptional.isEmpty()) {
             throw new ResourceNotFoundException("Voucher not found with this code : " + voucher.getId());
-        }else if(voucher.getExpireDate().isBefore(LocalDate.now())){
+        }else if(voucherOptional.get().getExpireDate().isBefore(LocalDate.now())){
             deleteVoucher(voucher.getId());
             return;
         }
+        voucher = voucherOptional.get();
         BigDecimal discount = voucher.getDiscount();
         BigDecimal productPrice = BigDecimal.valueOf(product.getPrice());
         // price - (price * (discount/100))

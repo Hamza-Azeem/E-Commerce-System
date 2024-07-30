@@ -5,6 +5,10 @@ import com.example.producttestapi.entities.Voucher;
 import com.example.producttestapi.exception.ResourceNotFoundException;
 import com.example.producttestapi.repos.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -26,6 +30,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Cacheable(value = "allProducts")
     public List<Product> getAllProducts() {
         List<Product> products = productRepo.findAll();
         for(Product product : products) {
@@ -35,6 +40,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Cacheable(value = "productById", key = "#id")
     public Product getProductById(int id) {
         Optional<Product> optionalProduct = productRepo.findById(id);
         if (!optionalProduct.isPresent()) {
@@ -46,6 +52,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Cacheable(value = "productByCategory", key = "#categoryID")
     public List<Product> getProductsByCategory(int categoryID) {
         categoryService.getCategory(categoryID);
         List<Product> products = productRepo.findByCategory(categoryID);
@@ -56,23 +63,49 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    @Caching(
+            evict = {
+                    @CacheEvict(value = "allProducts", allEntries = true),
+                    @CacheEvict(value = "productByCategory", key = "#product.category.id")
+            }
+    )
     public Product createProduct(Product product) {
         return productRepo.save(product);
     }
 
     @Override
+    @Caching(
+            evict = {
+                    @CacheEvict(value = "allProducts", allEntries = true),
+                    @CacheEvict(value = "productByCategory", allEntries = true)
+            },
+            put = {
+                    @CachePut(value = "productById", key = "#product.id"),
+            }
+    )
     public Product updateProduct(Product product) {
         if (!productRepo.existsById(product.getId())) {
             throw new ResourceNotFoundException("Product not found with id: " + product.getId());
         }
-        return productRepo.save(product);
+        productRepo.save(product);
+        voucherService.applyVoucherOnProduct(product);
+        return product;
     }
 
     @Override
+    @Caching(
+            evict = {
+                    @CacheEvict(value = "allProducts", allEntries = true),
+                    @CacheEvict(value = "productById", key = "#id"),
+                    @CacheEvict(value = "productByCategory", allEntries = true)
+            }
+    )
     public void deleteProduct(int id) {
-        if (!productRepo.existsById(id)) {
+        Optional<Product> optionalProduct = productRepo.findById(id);
+        if (optionalProduct.isEmpty()) {
             throw new ResourceNotFoundException("Product not found with id: " + id);
         }
+        Product product = optionalProduct.get();
         productRepo.deleteById(id);
     }
 }
