@@ -24,7 +24,6 @@ public class Category {
     private List<Product> products;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_category_id")
-    @JsonIgnore
     private Category parentCategory;
     @OneToMany(mappedBy = "parentCategory", fetch = FetchType.LAZY)
     private Set<Category> subCategories;

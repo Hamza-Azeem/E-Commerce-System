@@ -2,7 +2,7 @@ package com.example.producttestapi.service;
 
 import com.example.producttestapi.dto.ProductDto;
 import com.example.producttestapi.entities.Product;
-import com.example.producttestapi.entities.Voucher;
+
 import com.example.producttestapi.exception.ResourceNotFoundException;
 import com.example.producttestapi.repos.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +12,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -34,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Cacheable(value = "allProducts")
+    @Cacheable(value = "products", key = "'all'")
     public List<ProductDto> getAllProducts() {
         List<Product> products = productRepo.findAll();
         for(Product product : products) {
@@ -46,7 +44,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Cacheable(value = "productById", key = "#id")
+    @Cacheable(value = "productId", key = "#id")
     public ProductDto getProductById(int id) {
         Optional<Product> optionalProduct = productRepo.findById(id);
         if (!optionalProduct.isPresent()) {
@@ -58,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Cacheable(value = "productByCategory", key = "#categoryID")
+    @Cacheable(value = "products", key = "'category' + #categoryID")
     public List<ProductDto> getProductsByCategory(int categoryID) {
         categoryService.getCategory(categoryID);
         List<Product> products = productRepo.findByCategory(categoryID);
@@ -69,12 +67,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Caching(
-            evict = {
-                    @CacheEvict(value = "allProducts", allEntries = true),
-                    @CacheEvict(value = "productByCategory", key = "#product.category.id")
-            }
-    )
+    @CacheEvict(value = "products", allEntries = true)
     public void createProduct(Product product) {
         productRepo.save(product);
     }
@@ -82,11 +75,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Caching(
             evict = {
-                    @CacheEvict(value = "allProducts", allEntries = true),
-                    @CacheEvict(value = "productByCategory", allEntries = true)
+                    @CacheEvict(value = "products", allEntries = true),
             },
             put = {
-                    @CachePut(value = "productById", key = "#product.id"),
+                    @CachePut(value = "productId", key = "#product.id"),
             }
     )
     public ProductDto updateProduct(Product product) {
@@ -101,9 +93,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Caching(
             evict = {
-                    @CacheEvict(value = "allProducts", allEntries = true),
-                    @CacheEvict(value = "productById", key = "#id"),
-                    @CacheEvict(value = "productByCategory", allEntries = true)
+                    @CacheEvict(value = "products", allEntries = true),
+                    @CacheEvict(value = "productId", key = "#id"),
             }
     )
     public void deleteProduct(int id) {
