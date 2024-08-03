@@ -16,4 +16,9 @@ public class CartItemServiceImpl implements CartItemService {
     public void saveCartItem(CartItem cartItem) {
         cartItemRepo.save(cartItem);
     }
+
+    @Override
+    public void deleteCartItem(CartItem cartItem) {
+        cartItemRepo.delete(cartItem);
+    }
 }

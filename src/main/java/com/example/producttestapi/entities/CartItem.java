@@ -16,10 +16,7 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,
-            CascadeType.REFRESH,
-            CascadeType.DETACH,
-            CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
     @JsonIgnore
     private Product product;
@@ -30,13 +27,13 @@ public class CartItem {
     @JsonIgnore
     private Cart cart;
 
-    public CartItem(Product product, String name,int quantity, double pricePerItem) {
+    public CartItem(Product product, String name,int quantity, double pricePerItem){
         this.product = product;
         this.name = name;
         this.quantity = quantity;
         this.pricePerItem = pricePerItem;
     }
-    public CartItem(Product product, String name,int quantity, double pricePerItem, Cart cart) {
+    public CartItem(Product product, String name,int quantity, double pricePerItem, Cart cart){
         this.product = product;
         this.name = name;
         this.quantity = quantity;

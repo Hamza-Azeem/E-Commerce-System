@@ -1,5 +1,6 @@
 package com.example.producttestapi.service;
 
+import com.example.producttestapi.dto.CartDto;
 import com.example.producttestapi.dto.ProductDto;
 import com.example.producttestapi.entities.Cart;
 import com.example.producttestapi.entities.CartItem;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.example.producttestapi.mapper.CartMapper.convertToCartDto;
 import static com.example.producttestapi.mapper.ProductMapper.convertToProductDto;
 
 @Service
@@ -118,7 +120,7 @@ public class ProductServiceImpl implements ProductService {
         productRepo.deleteById(id);
     }
     @Override
-    public Cart buyProduct(BuyingRequest buyingRequest) {
+    public CartDto buyProduct(BuyingRequest buyingRequest) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = authentication.getName();
         Product product = productRepo.findById(buyingRequest.getProductId())
@@ -129,14 +131,23 @@ public class ProductServiceImpl implements ProductService {
             cart = new Cart(user);
             cartService.saveCart(cart);
         }
+        double currentPrice = product.getPrice();
         voucherService.applyVoucherOnProduct(product);
-        CartItem cartItem = new CartItem(product, product.getName(), buyingRequest.getCount(), product.getPrice(), cart);
+        double priceAfterVoucher = product.getPrice();
+        product.setPrice(currentPrice);
+        CartItem cartItem = new CartItem(product, product.getName(), buyingRequest.getCount(), priceAfterVoucher, cart);
+        if(cart.getItems().containsKey(product.getId())){
+            CartItem oldCartItem = cart.getItems().get(product.getId());
+            cartItem.setQuantity(buyingRequest.getCount() + oldCartItem.getQuantity());
+            cart.setTotalItems(cart.getTotalItems() - oldCartItem.getQuantity());
+            cart.setTotalPrice(cart.getTotalPrice() - oldCartItem.getQuantity() * oldCartItem.getPricePerItem());
+            cartItemService.deleteCartItem(oldCartItem);
+        }
         cartItemService.saveCartItem(cartItem);
         cart.addItem(cartItem);
-        cart.calculateTotalPrice();
         cartService.saveCart(cart);
         user.setCart(cart);
         userService.updateUserCart(user);
-        return cart;
+        return convertToCartDto(cart);
     }
 }

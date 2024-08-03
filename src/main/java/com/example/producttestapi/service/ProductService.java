@@ -1,5 +1,6 @@
 package com.example.producttestapi.service;
 
+import com.example.producttestapi.dto.CartDto;
 import com.example.producttestapi.dto.ProductDto;
 import com.example.producttestapi.entities.Cart;
 import com.example.producttestapi.entities.Product;
@@ -14,5 +15,5 @@ public interface ProductService {
     void createProduct(Product product);
     ProductDto updateProduct(Product product);
     void deleteProduct(int id);
-    public Cart buyProduct(BuyingRequest buyingRequest);
+    public CartDto buyProduct(BuyingRequest buyingRequest);
 }

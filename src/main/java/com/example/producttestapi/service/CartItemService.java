@@ -6,4 +6,5 @@ import com.example.producttestapi.entities.Product;
 
 public interface CartItemService {
     void saveCartItem(CartItem cartItem);
+    void deleteCartItem(CartItem cartItem);
 }
