@@ -16,18 +16,23 @@ import java.util.Set;
 @Getter
 public class User {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
-
-        private String firstName;
-
-        private String lastName;
-
-        private String password;
-
-        private String email;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String firstName;
+    private String lastName;
+    private String password;
+    private String email;
+    @OneToOne
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "USER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
+    )
+    private Set<Role> roles;
         public User() {
         }
     public User(String firstName, String lastName, String password, String email) {
@@ -37,13 +42,6 @@ public class User {
         this.email = email;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
-        @JoinTable(
-                name = "user_role",
-                joinColumns = @JoinColumn(name = "USER_ID"),
-                inverseJoinColumns = @JoinColumn(name = "ROLE_ID")
-        )
-        private Set<Role> roles;
         // helper method
         public void addRole(Role role){
             if(roles == null){

@@ -1,15 +1,21 @@
 package com.example.producttestapi.service;
 
 import com.example.producttestapi.dto.ProductDto;
+import com.example.producttestapi.entities.Cart;
+import com.example.producttestapi.entities.CartItem;
 import com.example.producttestapi.entities.Product;
 
+import com.example.producttestapi.entities.User;
 import com.example.producttestapi.exception.ResourceNotFoundException;
+import com.example.producttestapi.model.BuyingRequest;
 import com.example.producttestapi.repos.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,12 +29,18 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepo productRepo;
     private final VoucherService voucherService;
     private final CategoryService categoryService;
+    private final UserService userService;
+    private final CartItemService cartItemService;
+    private final CartService cartService;
 
     @Autowired
-    public ProductServiceImpl(ProductRepo productRepo, VoucherService voucherService, CategoryService categoryService) {
+    public ProductServiceImpl(ProductRepo productRepo, VoucherService voucherService, CategoryService categoryService, UserService userService, CartItemService cartItemService, CartService cartService) {
         this.productRepo = productRepo;
         this.voucherService = voucherService;
         this.categoryService = categoryService;
+        this.userService = userService;
+        this.cartItemService = cartItemService;
+        this.cartService = cartService;
     }
 
     @Override
@@ -104,5 +116,27 @@ public class ProductServiceImpl implements ProductService {
         }
         Product product = optionalProduct.get();
         productRepo.deleteById(id);
+    }
+    @Override
+    public Cart buyProduct(BuyingRequest buyingRequest) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userEmail = authentication.getName();
+        Product product = productRepo.findById(buyingRequest.getProductId())
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + buyingRequest.getProductId()));
+        User user = userService.findUserByEmail(userEmail);
+        Cart cart = cartService.findUserCart(userEmail);
+        if (cart == null) {
+            cart = new Cart(user);
+            cartService.saveCart(cart);
+        }
+        voucherService.applyVoucherOnProduct(product);
+        CartItem cartItem = new CartItem(product, product.getName(), buyingRequest.getCount(), product.getPrice(), cart);
+        cartItemService.saveCartItem(cartItem);
+        cart.addItem(cartItem);
+        cart.calculateTotalPrice();
+        cartService.saveCart(cart);
+        user.setCart(cart);
+        userService.updateUserCart(user);
+        return cart;
     }
 }

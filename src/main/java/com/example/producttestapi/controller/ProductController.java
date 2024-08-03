@@ -2,6 +2,7 @@ package com.example.producttestapi.controller;
 
 import com.example.producttestapi.dto.ProductDto;
 import com.example.producttestapi.entities.Product;
+import com.example.producttestapi.model.BuyingRequest;
 import com.example.producttestapi.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,6 +42,10 @@ public class ProductController {
     public ResponseEntity<?> createProduct(@RequestBody Product product) {
         productService.createProduct(product);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+    @PostMapping("/buy")
+    public ResponseEntity<?> buyProduct(@RequestBody BuyingRequest buyingRequest){
+        return ResponseEntity.ok(productService.buyProduct(buyingRequest));
     }
 
     @PutMapping

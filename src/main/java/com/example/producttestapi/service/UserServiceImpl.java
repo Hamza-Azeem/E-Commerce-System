@@ -33,8 +33,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserDto findUserByEmail(String email) {
+    public UserDto findUserDtoByEmail(String email) {
         return convertToUserDto(userRepo.findByEmail(email)) ;
+    }
+    @Override
+    public User findUserByEmail(String email) {
+        return userRepo.findByEmail(email);
     }
 
     @Override
@@ -48,5 +52,10 @@ public class UserServiceImpl implements UserService{
                 .stream()
                 .map(user -> convertToUserDto(user))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void updateUserCart(User user) {
+        userRepo.save(user);
     }
 }

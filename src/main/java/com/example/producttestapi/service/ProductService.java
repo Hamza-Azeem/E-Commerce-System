@@ -1,7 +1,9 @@
 package com.example.producttestapi.service;
 
 import com.example.producttestapi.dto.ProductDto;
+import com.example.producttestapi.entities.Cart;
 import com.example.producttestapi.entities.Product;
+import com.example.producttestapi.model.BuyingRequest;
 
 import java.util.List;
 
@@ -12,5 +14,5 @@ public interface ProductService {
     void createProduct(Product product);
     ProductDto updateProduct(Product product);
     void deleteProduct(int id);
-
+    public Cart buyProduct(BuyingRequest buyingRequest);
 }

@@ -8,7 +8,9 @@ import java.util.List;
 
 public interface UserService {
     public void createUser(RegistrationRequest request);
-    public UserDto findUserByEmail(String email);
+    public User findUserByEmail(String email);
+    public UserDto findUserDtoByEmail(String email);
     public boolean UserExistsByEmail(String email);
     public List<UserDto> findAllUsers();
+    public void updateUserCart(User user);
 }
