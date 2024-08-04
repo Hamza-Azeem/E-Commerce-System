@@ -1,6 +1,7 @@
 package com.example.producttestapi.advice;
 
 import com.example.producttestapi.exception.DuplicateResourceException;
+import com.example.producttestapi.exception.InValidRequestException;
 import com.example.producttestapi.exception.ResourceNotFoundException;
 import com.example.producttestapi.model.ErrorModel;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,10 @@ public class ExceptionControllerAdvice {
     }
     @ExceptionHandler(DuplicateResourceException.class)
     public ResponseEntity<ErrorModel> handleDuplicateResourceException(RuntimeException exception){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(new ErrorModel(exception.getMessage(), LocalDateTime.now()));
+    }
+    @ExceptionHandler(InValidRequestException.class)
+    public ResponseEntity<ErrorModel> handleInValidRequestException(RuntimeException exception){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(new ErrorModel(exception.getMessage(), LocalDateTime.now()));
     }
 }

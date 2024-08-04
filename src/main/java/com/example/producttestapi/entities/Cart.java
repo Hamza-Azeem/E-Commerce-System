@@ -20,8 +20,8 @@ public class Cart {
     @Column(name = "total_price")
     private double totalPrice = 0;
     private int totalItems = 0;
-    @OneToMany(mappedBy = "cart", fetch = FetchType.EAGER)
-    private Map<Integer, CartItem> items = new HashMap<>();;
+    @OneToMany(mappedBy = "cart", fetch = FetchType.EAGER, orphanRemoval = true)
+    private Map<Integer, CartItem> items = new HashMap<>();
     @OneToOne(mappedBy = "cart")
     @JsonIgnore
     private User user;

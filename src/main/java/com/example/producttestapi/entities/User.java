@@ -23,7 +23,7 @@ public class User {
     private String lastName;
     private String password;
     private String email;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "cart_id")
     private Cart cart;
     @ManyToMany(fetch = FetchType.EAGER)

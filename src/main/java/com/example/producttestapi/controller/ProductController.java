@@ -43,10 +43,6 @@ public class ProductController {
         productService.createProduct(product);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-    @PostMapping("/buy")
-    public ResponseEntity<?> buyProduct(@RequestBody BuyingRequest buyingRequest){
-        return ResponseEntity.ok(productService.buyProduct(buyingRequest));
-    }
 
     @PutMapping
     public ResponseEntity<ProductDto> updateProduct(@RequestBody Product product) {

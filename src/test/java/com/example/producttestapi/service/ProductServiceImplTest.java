@@ -29,17 +29,11 @@ class ProductServiceImplTest {
     private ProductRepo productRepo;
     @Mock
     private VoucherService voucherService;
-    @Mock
-    private UserService userService;
-    @Mock
-    private CartItemService cartItemService;
-    @Mock
-    private CartService cartService;
 
     private Faker faker = new Faker();
     @BeforeEach
     void setUp() {
-        underTest = new ProductServiceImpl(productRepo, voucherService, categoryService, userService, cartItemService, cartService);
+        underTest = new ProductServiceImpl(productRepo, voucherService, categoryService);
     }
 
     @Test

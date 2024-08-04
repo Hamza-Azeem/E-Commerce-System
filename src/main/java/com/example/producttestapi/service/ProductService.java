@@ -15,5 +15,5 @@ public interface ProductService {
     void createProduct(Product product);
     ProductDto updateProduct(Product product);
     void deleteProduct(int id);
-    public CartDto buyProduct(BuyingRequest buyingRequest);
+    Product getActualProductById(int id);
 }

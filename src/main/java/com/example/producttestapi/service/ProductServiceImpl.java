@@ -1,29 +1,21 @@
 package com.example.producttestapi.service;
 
-import com.example.producttestapi.dto.CartDto;
 import com.example.producttestapi.dto.ProductDto;
-import com.example.producttestapi.entities.Cart;
-import com.example.producttestapi.entities.CartItem;
 import com.example.producttestapi.entities.Product;
 
-import com.example.producttestapi.entities.User;
 import com.example.producttestapi.exception.ResourceNotFoundException;
-import com.example.producttestapi.model.BuyingRequest;
 import com.example.producttestapi.repos.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.example.producttestapi.mapper.CartMapper.convertToCartDto;
 import static com.example.producttestapi.mapper.ProductMapper.convertToProductDto;
 
 @Service
@@ -31,18 +23,12 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepo productRepo;
     private final VoucherService voucherService;
     private final CategoryService categoryService;
-    private final UserService userService;
-    private final CartItemService cartItemService;
-    private final CartService cartService;
 
     @Autowired
-    public ProductServiceImpl(ProductRepo productRepo, VoucherService voucherService, CategoryService categoryService, UserService userService, CartItemService cartItemService, CartService cartService) {
+    public ProductServiceImpl(ProductRepo productRepo, VoucherService voucherService, CategoryService categoryService) {
         this.productRepo = productRepo;
         this.voucherService = voucherService;
         this.categoryService = categoryService;
-        this.userService = userService;
-        this.cartItemService = cartItemService;
-        this.cartService = cartService;
     }
 
     @Override
@@ -100,7 +86,6 @@ public class ProductServiceImpl implements ProductService {
             throw new ResourceNotFoundException("Product not found with id: " + product.getId());
         }
         productRepo.save(product);
-        voucherService.applyVoucherOnProduct(product);
         return convertToProductDto(product);
     }
 
@@ -119,35 +104,13 @@ public class ProductServiceImpl implements ProductService {
         Product product = optionalProduct.get();
         productRepo.deleteById(id);
     }
+
     @Override
-    public CartDto buyProduct(BuyingRequest buyingRequest) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userEmail = authentication.getName();
-        Product product = productRepo.findById(buyingRequest.getProductId())
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + buyingRequest.getProductId()));
-        User user = userService.findUserByEmail(userEmail);
-        Cart cart = cartService.findUserCart(userEmail);
-        if (cart == null) {
-            cart = new Cart(user);
-            cartService.saveCart(cart);
+    public Product getActualProductById(int id) {
+        Optional<Product> optionalProduct = productRepo.findById(id);
+        if (!optionalProduct.isPresent()) {
+            throw new ResourceNotFoundException("Product not found with id: " + id);
         }
-        double currentPrice = product.getPrice();
-        voucherService.applyVoucherOnProduct(product);
-        double priceAfterVoucher = product.getPrice();
-        product.setPrice(currentPrice);
-        CartItem cartItem = new CartItem(product, product.getName(), buyingRequest.getCount(), priceAfterVoucher, cart);
-        if(cart.getItems().containsKey(product.getId())){
-            CartItem oldCartItem = cart.getItems().get(product.getId());
-            cartItem.setQuantity(buyingRequest.getCount() + oldCartItem.getQuantity());
-            cart.setTotalItems(cart.getTotalItems() - oldCartItem.getQuantity());
-            cart.setTotalPrice(cart.getTotalPrice() - oldCartItem.getQuantity() * oldCartItem.getPricePerItem());
-            cartItemService.deleteCartItem(oldCartItem);
-        }
-        cartItemService.saveCartItem(cartItem);
-        cart.addItem(cartItem);
-        cartService.saveCart(cart);
-        user.setCart(cart);
-        userService.updateUserCart(user);
-        return convertToCartDto(cart);
+       return optionalProduct.get();
     }
 }
