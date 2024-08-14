@@ -23,7 +23,12 @@ public class WebSecurityConfig {
         http.httpBasic();
         http.authorizeHttpRequests(
           auth -> {
-              auth.requestMatchers(HttpMethod.POST, "/auth/**").permitAll();
+              auth.requestMatchers(
+                      "/auth/**",
+                      "/v3/api-docs",
+                      "/v3/api-docs/**",
+                      "/swagger-ui.html"
+              ).permitAll();
               auth.requestMatchers(HttpMethod.GET, "/**").hasAnyAuthority("ADMIN","USER","MANAGER")
                       .requestMatchers(HttpMethod.POST, "/**").hasAnyAuthority("ADMIN","MANAGER")
                       .requestMatchers(HttpMethod.DELETE,"/**").hasAnyAuthority("MANAGER");

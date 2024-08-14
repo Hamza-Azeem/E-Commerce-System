@@ -12,7 +12,7 @@ public interface CategoryService {
     List<CategoryDto> getOnlyMainCategories();
     List<CategoryDto> getAllSubCategoriesOfParentCategoryById(int id);
     void createCategory(Category category);
-
+    Category getCategoryByName(String name);
     void deleteCategory(int id);
     List<CategoryDto> GenerateCategoriesTree();
 }

@@ -3,6 +3,7 @@ package com.example.producttestapi.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.Set;
 @Entity
 @Setter
 @Getter
+@NoArgsConstructor
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,9 +30,6 @@ public class Category {
     @OneToMany(mappedBy = "parentCategory", fetch = FetchType.LAZY)
     private Set<Category> subCategories;
 
-    public Category() {
-
-    }
     public Category(String name) {
         this.name = name;
     }

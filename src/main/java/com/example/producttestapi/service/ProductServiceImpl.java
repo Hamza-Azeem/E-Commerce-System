@@ -1,10 +1,13 @@
 package com.example.producttestapi.service;
 
 import com.example.producttestapi.dto.ProductDto;
+import com.example.producttestapi.entities.Category;
 import com.example.producttestapi.entities.Product;
 
+import com.example.producttestapi.entities.Voucher;
 import com.example.producttestapi.exception.ResourceNotFoundException;
 import com.example.producttestapi.repos.ProductRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -16,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.example.producttestapi.mapper.ProductMapper.convertToProduct;
 import static com.example.producttestapi.mapper.ProductMapper.convertToProductDto;
 
 @Service
@@ -35,7 +39,7 @@ public class ProductServiceImpl implements ProductService {
     @Cacheable(value = "products", key = "'all'")
     public List<ProductDto> getAllProducts() {
         List<Product> products = productRepo.findAll();
-        for(Product product : products) {
+        for (Product product : products) {
             voucherService.applyVoucherOnProduct(product);
         }
         List<ProductDto> result = products.stream()
@@ -60,7 +64,7 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductDto> getProductsByCategory(int categoryID) {
         categoryService.getCategory(categoryID);
         List<Product> products = productRepo.findByCategory(categoryID);
-        for(Product product : products) {
+        for (Product product : products) {
             voucherService.applyVoucherOnProduct(product);
         }
         return products.stream().map(product -> convertToProductDto(product)).collect(Collectors.toList());
@@ -68,7 +72,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @CacheEvict(value = "products", allEntries = true)
-    public void createProduct(Product product) {
+    public void createProduct(ProductDto productDto) {
+        Category category = categoryService.getCategoryByName(productDto.getCategoryName());
+        Product product = convertToProduct(productDto);
+        product.setCategory(category);
+        if (productDto.getVoucherCode() != null) {
+            Voucher voucher = voucherService.findVoucherByCode(productDto.getVoucherCode());
+            product.setVoucherCode(voucher);
+        }
         productRepo.save(product);
     }
 
@@ -76,14 +87,21 @@ public class ProductServiceImpl implements ProductService {
     @Caching(
             evict = {
                     @CacheEvict(value = "products", allEntries = true),
-            },
-            put = {
-                    @CachePut(value = "productId", key = "#product.id"),
+                    @CacheEvict(value = "productId", key = "#id")
             }
     )
-    public ProductDto updateProduct(Product product) {
-        if (!productRepo.existsById(product.getId())) {
-            throw new ResourceNotFoundException("Product not found with id: " + product.getId());
+    @Transactional
+    public ProductDto updateProduct(int id, ProductDto productDto) {
+        Product product = getActualProductById(id);
+        Category category = categoryService.getCategoryByName(productDto.getCategoryName());
+        product.setCategory(category);
+        product.setName(productDto.getName());
+        product.setPrice(productDto.getPrice());
+        product.setDescription(productDto.getDescription());
+        product.setQuantityInStore(productDto.getQuantityInStore());
+        if (productDto.getVoucherCode() != null) {
+            Voucher voucher = voucherService.findVoucherByCode(productDto.getVoucherCode());
+            product.setVoucherCode(voucher);
         }
         productRepo.save(product);
         return convertToProductDto(product);
@@ -111,6 +129,22 @@ public class ProductServiceImpl implements ProductService {
         if (!optionalProduct.isPresent()) {
             throw new ResourceNotFoundException("Product not found with id: " + id);
         }
-       return optionalProduct.get();
+        return optionalProduct.get();
+    }
+
+    @Override
+    @Caching(
+            evict = {
+                    @CacheEvict(value = "products", allEntries = true),
+            },
+            put = {
+                    @CachePut(value = "productId", key = "#product.id"),
+            }
+    )
+    public void updateProductWhenUsingCart(Product product) {
+        if (!productRepo.existsById(product.getId())) {
+            throw new ResourceNotFoundException("Product not found with id: " + product.getId());
+        }
+        productRepo.save(product);
     }
 }

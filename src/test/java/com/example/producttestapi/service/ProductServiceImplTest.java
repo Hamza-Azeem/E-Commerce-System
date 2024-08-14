@@ -1,17 +1,22 @@
 package com.example.producttestapi.service;
 
 import com.example.producttestapi.dto.ProductDto;
+import com.example.producttestapi.entities.Category;
 import com.example.producttestapi.entities.Product;
+import com.example.producttestapi.entities.Voucher;
 import com.example.producttestapi.exception.ResourceNotFoundException;
 import com.example.producttestapi.repos.ProductRepo;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -66,12 +71,14 @@ class ProductServiceImplTest {
         String name = faker.name().firstName();
         String description = faker.gameOfThrones().quote();
         double price = faker.number().randomDouble(2, 2, 4);
+        int categoryId = faker.number().randomDigit();
+        Category category = new Category(categoryId,"TEST");
         Product product = new Product(
                 id,
                 name,
                 description,
                 price,
-                null,
+                category,
                 null
         );
         when(productRepo.findById(id)).thenReturn(Optional.of(product));
@@ -96,19 +103,16 @@ class ProductServiceImplTest {
     void getAllProductsByCategoryTest() {
         // Arrange
         int categoryId = faker.number().randomDigit();
-        Product product = new Product(
-                "product1",
-                "description",
-                25
-        );
-        Product product2 = new Product(
-                "product2",
-                "description2",
-                252
-        );
+        Category category = new Category(categoryId,"TEST");
+        Product product = Product.builder()
+                .category(category)
+                .build();
+        Product product2 = Product.builder()
+                .category(category)
+                .build();
         List<Product> products = Arrays.asList(product, product2);
-        // Act
         when(productRepo.findByCategory(categoryId)).thenReturn(products);
+        // Act
         underTest.getProductsByCategory(categoryId);
         // Assert
         verify(productRepo).findByCategory(categoryId);
@@ -125,50 +129,97 @@ class ProductServiceImplTest {
         assertThatThrownBy(() -> underTest.getProductsByCategory(categoryId))
                 .isInstanceOf(ResourceNotFoundException.class);
     }
-
     @Test
-    void createProductTest() {
+    void createProductTestWithOutVoucher() {
         // Arrange
-        Product product = new Product("product1",
-                faker.name().firstName(),
-                faker.number().randomDigit());
+        ProductDto productDto = ProductDto.builder()
+                .name(faker.name().title())
+                .description(faker.lorem().word())
+                .categoryName("Test")
+                .price(2000)
+                .quantityInStore(15)
+                .build();
+        Category category = new Category("Test");
+        when(categoryService.getCategoryByName("Test")).thenReturn(category);
+        ArgumentCaptor<Product> productArgumentCaptor = ArgumentCaptor.forClass(Product.class);
         // Act
-        underTest.createProduct(product);
+        underTest.createProduct(productDto);
         // Assert
-        verify(productRepo).save(product);
+        verify(productRepo).save(productArgumentCaptor.capture());
+        Product actual = productArgumentCaptor.getValue();
+        assertThat(actual.getName()).isEqualTo(productDto.getName());
+        assertThat(actual.getCategory().getName()).isEqualTo(productDto.getCategoryName());
+        assertThat(actual.getDescription()).isEqualTo(productDto.getDescription());
+        assertThat(actual.getPrice()).isEqualTo(productDto.getPrice());
+        assertThat(actual.getQuantityInStore()).isEqualTo(productDto.getQuantityInStore());
+    }
+    @Test
+    void createProductTestWithVoucher() {
+        // Arrange
+        String discount15 = "DISCOUNT15";
+        ProductDto productDto = ProductDto.builder()
+                .name(faker.name().title())
+                .description(faker.lorem().word())
+                .categoryName("Test")
+                .price(2000)
+                .quantityInStore(15)
+                .voucherCode(discount15)
+                .build();
+        Category category = new Category("Test");
+        Voucher voucher = new Voucher(discount15, BigDecimal.valueOf(15), LocalDate.now().plusDays(1));
+        when(categoryService.getCategoryByName("Test")).thenReturn(category);
+        when(voucherService.findVoucherByCode(discount15)).thenReturn(voucher);
+        ArgumentCaptor<Product> productArgumentCaptor = ArgumentCaptor.forClass(Product.class);
+        // Act
+        underTest.createProduct(productDto);
+        // Assert
+        verify(productRepo).save(productArgumentCaptor.capture());
+        Product actual = productArgumentCaptor.getValue();
+        assertThat(actual.getName()).isEqualTo(productDto.getName());
+        assertThat(actual.getCategory().getName()).isEqualTo(productDto.getCategoryName());
+        assertThat(actual.getDescription()).isEqualTo(productDto.getDescription());
+        assertThat(actual.getVoucherCode().getCode()).isEqualTo(productDto.getVoucherCode());
+        assertThat(actual.getPrice()).isEqualTo(productDto.getPrice());
     }
 
     @Test
     void updateProductTest() {
         // Arrange
         int id = faker.number().randomDigit();
+        ProductDto productDto = ProductDto.builder()
+                .name(faker.name().title())
+                .description(faker.lorem().word())
+                .categoryName("Test")
+                .price(2000)
+                .build();
+        Category category = new Category("Test");
         Product product = new Product(
-                id,
-                "product1",
-                faker.name().firstName(),
-                faker.number().randomDigit(),
-                null,
-                null);
-        when(productRepo.existsById(id)).thenReturn(true);
+                faker.name().title(),
+                faker.lorem().word(),
+                faker.random().nextDouble(),
+                category
+        );
+        when(productRepo.findById(id)).thenReturn(Optional.of(product));
+        when(categoryService.getCategoryByName("Test")).thenReturn(category);
+        ArgumentCaptor<Product> productArgumentCaptor = ArgumentCaptor.forClass(Product.class);
         // Act
-        underTest.updateProduct(product);
+        underTest.updateProduct(id, productDto);
         // Assert
-        verify(productRepo).save(product);
+        verify(productRepo).save(productArgumentCaptor.capture());
+        Product actual = productArgumentCaptor.getValue();
+        assertThat(actual.getName()).isEqualTo(productDto.getName());
+        assertThat(actual.getCategory().getName()).isEqualTo(productDto.getCategoryName());
+        assertThat(actual.getDescription()).isEqualTo(productDto.getDescription());
+        assertThat(actual.getPrice()).isEqualTo(productDto.getPrice());
     }
     @Test
     void updateProductWillThrowExceptionWhenProductNotFound() {
         // Arrange
         int id = faker.number().randomDigit();
-        Product product = new Product(
-                id,
-                "product1",
-                faker.name().firstName(),
-                faker.number().randomDigit(),
-                null,
-                null);
-        when(productRepo.existsById(id)).thenReturn(false);
+        ProductDto productDto = ProductDto.builder().build();
+        when(productRepo.findById(id)).thenReturn(Optional.empty());
         // Assert
-        assertThatThrownBy(()->underTest.updateProduct(product))
+        assertThatThrownBy(()->underTest.updateProduct(id, productDto))
                 .isInstanceOf(ResourceNotFoundException.class)
                 .hasMessage("Product not found with id: " + id);
     }

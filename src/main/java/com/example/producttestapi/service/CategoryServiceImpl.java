@@ -69,6 +69,15 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Category getCategoryByName(String name) {
+        Optional<Category> optionalCategory = categoryRepo.findByName(name);
+        if(optionalCategory.isEmpty()){
+            throw new ResourceNotFoundException("Category not found with name: " + name);
+        }
+        return optionalCategory.get();
+    }
+
+    @Override
     @Caching(
             evict = {
                     @CacheEvict(value = "categories", allEntries = true),

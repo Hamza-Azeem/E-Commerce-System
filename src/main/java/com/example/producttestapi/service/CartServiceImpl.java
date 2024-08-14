@@ -47,7 +47,7 @@ public class CartServiceImpl implements CartService{
         for(CartItem cartItem: cart.getItems().values()){
             Product product = cartItem.getProduct();
             product.setQuantityInStore(product.getQuantityInStore() + cartItem.getQuantity());
-            productService.updateProduct(product);
+            productService.updateProductWhenUsingCart(product);
         }
         user.setCart(null);
         userService.updateUserCart(user);
@@ -123,7 +123,7 @@ public class CartServiceImpl implements CartService{
         }else {
             product.setQuantityInStore(product.getQuantityInStore() + quantity);
         }
-        productService.updateProduct(product);
+        productService.updateProductWhenUsingCart(product);
     }
     @Transactional
     protected void updateCartPriceAndQuantityWhenAddingItem(Cart cart,Product product, int newQuantity) {

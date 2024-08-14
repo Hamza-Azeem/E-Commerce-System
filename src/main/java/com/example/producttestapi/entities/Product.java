@@ -1,6 +1,8 @@
 package com.example.producttestapi.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +11,8 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
+@Builder
+@AllArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,10 +21,10 @@ public class Product {
     private String description;
     private double price;
     private int quantityInStore;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     private Category category ;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "voucher_id")
     private Voucher voucherCode;
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
