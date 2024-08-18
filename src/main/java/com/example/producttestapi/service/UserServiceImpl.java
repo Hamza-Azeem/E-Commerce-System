@@ -28,6 +28,9 @@ public class UserServiceImpl implements UserService{
                 request.getPassword(),
                 request.getEmail());
         Role userRole = roleService.findRoleByName("USER");
+        if(userRole == null){
+            userRole = roleService.saveRole(new Role("USER"));
+        }
         user.addRole(userRole);
         userRepo.save(user);
     }
