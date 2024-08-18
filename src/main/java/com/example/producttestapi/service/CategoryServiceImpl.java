@@ -3,6 +3,7 @@ package com.example.producttestapi.service;
 import com.example.producttestapi.dto.CategoryDto;
 import com.example.producttestapi.entities.Category;
 import com.example.producttestapi.exception.ResourceNotFoundException;
+import com.example.producttestapi.mapper.CategoryMapper;
 import com.example.producttestapi.repos.CategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.example.producttestapi.mapper.CategoryMapper.convertToCategory;
 import static com.example.producttestapi.mapper.CategoryMapper.convertToCategoryDto;
 
 @Service
@@ -47,7 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Cacheable(value = "categories", key = "'main'")
     public List<CategoryDto> getOnlyMainCategories() {
         return categoryRepo.findMainCategories()
-                .stream().map(category -> convertToCategoryDto(category))
+                .stream().map(CategoryMapper::convertToCategoryDto)
                 .collect(Collectors.toList());
     }
     @Override
@@ -58,13 +60,18 @@ public class CategoryServiceImpl implements CategoryService {
             throw new ResourceNotFoundException("Category not found with id: " + id);
         }
         return optionalCategory.get().getSubCategories().stream()
-                .map(category -> convertToCategoryDto(category))
+                .map(CategoryMapper::convertToCategoryDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     @CacheEvict(value = "categories", allEntries = true)
-    public void createCategory(Category category) {
+    public void createCategory(CategoryDto categoryDto) {
+        Category category = convertToCategory(categoryDto);
+        if(categoryDto.getParentCategoryName() != null){
+            Category parent = getCategoryByName(categoryDto.getParentCategoryName());
+            category.setParentCategory(parent);
+        }
         categoryRepo.save(category);
     }
 
@@ -104,6 +111,7 @@ public class CategoryServiceImpl implements CategoryService {
             CategoryDto categoryDto = categoryDtoMap.get(category.getId());
             if(category.getParentCategory() != null){
                 CategoryDto parentCategory = categoryDtoMap.get(category.getParentCategory().getId());
+                categoryDto.setParentCategoryName(parentCategory.getName());
                 parentCategory.getSubCategories().add(categoryDto);
             }else{
                 result.add(categoryDto);

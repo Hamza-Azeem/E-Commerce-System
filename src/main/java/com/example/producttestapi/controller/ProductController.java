@@ -28,7 +28,7 @@ public class ProductController {
             description = "GET endpoint to retrieve ProductDto list",
             responses = {
                     @ApiResponse(
-                            description = "Success",
+                            description = "success",
                             responseCode = "200"
                     ),
                     @ApiResponse(
@@ -45,7 +45,7 @@ public class ProductController {
             description = "GET endpoint to retrieve ProductDto by product ID",
             responses = {
                     @ApiResponse(
-                            description = "Success",
+                            description = "success",
                             responseCode = "200"
                     ),
                     @ApiResponse(
@@ -53,7 +53,7 @@ public class ProductController {
                             responseCode = "401"
                     ),
                     @ApiResponse(
-                            description = "Not found",
+                            description = "not found",
                             responseCode = "404"
                     )
             }
@@ -67,7 +67,7 @@ public class ProductController {
             description = "GET endpoint to retrieve all products (productDto) in a category by category ID",
             responses = {
                     @ApiResponse(
-                            description = "Success",
+                            description = "success",
                             responseCode = "200"
                     ),
                     @ApiResponse(
@@ -75,7 +75,7 @@ public class ProductController {
                             responseCode = "401"
                     )
                     ,@ApiResponse(
-                            description = "Not found",
+                            description = "not found",
                             responseCode = "404"
                     )
             }
@@ -88,7 +88,7 @@ public class ProductController {
             description = "POST endpoint to create a new product",
             responses = {
                     @ApiResponse(
-                            description = "created",
+                            description = "success",
                             responseCode = "201"
                     ),
                     @ApiResponse(
@@ -111,7 +111,7 @@ public class ProductController {
             description = "PUT endpoint to update an existing product by product",
             responses = {
                     @ApiResponse(
-                            description = "Success",
+                            description = "success",
                             responseCode = "200"
                     ),
                     @ApiResponse(
@@ -123,7 +123,7 @@ public class ProductController {
                     responseCode = "403"
                     ),
                     @ApiResponse(
-                            description = "Not found",
+                            description = "not found",
                             responseCode = "404"
                     )
             }
@@ -133,7 +133,7 @@ public class ProductController {
         return ResponseEntity.ok().body(productService.updateProduct(id, productDto));
     }
     @Operation(
-            description = "Delete endpoint to delete an existing product by product ID",
+            description = "DELETE endpoint to delete an existing product by product ID",
             responses = {
                     @ApiResponse(
                             description = "success",
@@ -148,7 +148,7 @@ public class ProductController {
                             responseCode = "403"
                     ),
                     @ApiResponse(
-                            description = "Not found",
+                            description = "not found",
                             responseCode = "404"
                     )
             }

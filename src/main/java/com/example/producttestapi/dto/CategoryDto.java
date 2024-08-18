@@ -14,5 +14,6 @@ import java.util.List;
 public class CategoryDto {
     private String name;
     private List<CategoryDto> subCategories = new ArrayList<>();
+    private String parentCategoryName;
 
 }

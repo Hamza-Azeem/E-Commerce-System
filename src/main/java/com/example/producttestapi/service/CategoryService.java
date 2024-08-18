@@ -11,7 +11,7 @@ public interface CategoryService {
     CategoryDto getCategory(int id);
     List<CategoryDto> getOnlyMainCategories();
     List<CategoryDto> getAllSubCategoriesOfParentCategoryById(int id);
-    void createCategory(Category category);
+    void createCategory(CategoryDto categoryDto);
     Category getCategoryByName(String name);
     void deleteCategory(int id);
     List<CategoryDto> GenerateCategoriesTree();

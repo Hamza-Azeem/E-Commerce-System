@@ -8,6 +8,7 @@ import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -124,167 +125,53 @@ class CategoryServiceImplTest {
                 .hasMessage("Category not found with id: " + id);
     }
     @Test
-    void findAllMainCategoriesAndTheirSubCategoriesTest(){
-        // Todo[
-        //    {
-        //        "name": "Electronics",
-        //        "subCategories": [
-        //            {
-        //                "id": 12,
-        //                "name": "Laptops",
-        //                "subCategories": [
-        //                    {
-        //                        "id": 21,
-        //                        "name": "Gaming Laptops",
-        //                        "subCategories": []
-        //                    },
-        //                    {
-        //                        "id": 22,
-        //                        "name": "Ultrabooks",
-        //                        "subCategories": []
-        //                    }
-        //                ]
-        //            },
-        //            {
-        //                "id": 2,
-        //                "name": "Mobile Phones",
-        //                "subCategories": [
-        //                    {
-        //                        "id": 19,
-        //                        "name": "Android Phones",
-        //                        "subCategories": []
-        //                    },
-        //                    {
-        //                        "id": 20,
-        //                        "name": "iPhones",
-        //                        "subCategories": []
-        //                    }
-        //                ]
-        //            }
-        //        ]
-        //    },
-        //    {
-        //        "name": "Home Appliances",
-        //        "subCategories": [
-        //            {
-        //                "id": 14,
-        //                "name": "Laundry Appliances",
-        //                "subCategories": [
-        //                    {
-        //                        "id": 26,
-        //                        "name": "Dryers",
-        //                        "subCategories": []
-        //                    },
-        //                    {
-        //                        "id": 25,
-        //                        "name": "Washing Machines",
-        //                        "subCategories": []
-        //                    }
-        //                ]
-        //            },
-        //            {
-        //                "id": 13,
-        //                "name": "Kitchen Appliances",
-        //                "subCategories": [
-        //                    {
-        //                        "id": 23,
-        //                        "name": "Refrigerators",
-        //                        "subCategories": []
-        //                    },
-        //                    {
-        //                        "id": 24,
-        //                        "name": "Microwaves",
-        //                        "subCategories": []
-        //                    }
-        //                ]
-        //            }
-        //        ]
-        //    },
-        //    {
-        //        "name": "Clothing",
-        //        "subCategories": [
-        //            {
-        //                "id": 16,
-        //                "name": "Women's Wear",
-        //                "subCategories": [
-        //                    {
-        //                        "id": 30,
-        //                        "name": "Skirts",
-        //                        "subCategories": []
-        //                    },
-        //                    {
-        //                        "id": 29,
-        //                        "name": "Dresses",
-        //                        "subCategories": []
-        //                    }
-        //                ]
-        //            },
-        //            {
-        //                "id": 15,
-        //                "name": "Men's Wear",
-        //                "subCategories": [
-        //                    {
-        //                        "id": 27,
-        //                        "name": "T-Shirts",
-        //                        "subCategories": []
-        //                    },
-        //                    {
-        //                        "id": 28,
-        //                        "name": "Jeans",
-        //                        "subCategories": []
-        //                    }
-        //                ]
-        //            }
-        //        ]
-        //    },
-        //    {
-        //        "name": "Books",
-        //        "subCategories": [
-        //            {
-        //                "id": 18,
-        //                "name": "Non-Fiction",
-        //                "subCategories": [
-        //                    {
-        //                        "id": 33,
-        //                        "name": "Biographies",
-        //                        "subCategories": []
-        //                    },
-        //                    {
-        //                        "id": 34,
-        //                        "name": "Self-Help",
-        //                        "subCategories": []
-        //                    }
-        //                ]
-        //            },
-        //            {
-        //                "id": 17,
-        //                "name": "Fiction",
-        //                "subCategories": [
-        //                    {
-        //                        "id": 31,
-        //                        "name": "Science Fiction",
-        //                        "subCategories": []
-        //                    },
-        //                    {
-        //                        "id": 32,
-        //                        "name": "Fantasy",
-        //                        "subCategories": []
-        //                    }
-        //                ]
-        //            }
-        //        ]
-        //    }
-        //]
+    void getAllMainCategoriesTest(){
+        // Arrange
+        // Act
+        underTest.getOnlyMainCategories();
+        // Assert
+        verify(categoryRepo).findMainCategories();
     }
 
     @Test
     void createCategoryTest() {
         // Arrange
-        Category category = new Category("name");
+        CategoryDto categoryDto = new CategoryDto("name", null, null);
+        ArgumentCaptor<Category> categoryArgumentCaptor = ArgumentCaptor.forClass(Category.class);
         // Act
-        underTest.createCategory(category);
+        underTest.createCategory(categoryDto);
         // Assert
-        verify(categoryRepo).save(category);
+        verify(categoryRepo).save(categoryArgumentCaptor.capture());
+        Category actual = categoryArgumentCaptor.getValue();
+        assertThat(actual.getName()).isEqualTo(categoryDto.getName());
+        assertThat(actual).isNotNull();
+    }
+    @Test
+    void createCategoryWithHavingParentCategoryTest() {
+        // Arrange
+        CategoryDto categoryDto = new CategoryDto("name", null, "parent-category");
+        Category parent = Category.builder().name("parent-category").build();
+        ArgumentCaptor<Category> categoryArgumentCaptor = ArgumentCaptor.forClass(Category.class);
+        when(categoryRepo.findByName("parent-category")).thenReturn(Optional.of(parent));
+        // Act
+        underTest.createCategory(categoryDto);
+        // Assert
+        verify(categoryRepo).save(categoryArgumentCaptor.capture());
+        Category actual = categoryArgumentCaptor.getValue();
+        assertThat(actual.getName()).isEqualTo(categoryDto.getName());
+        assertThat(actual.getParentCategory()).isEqualTo(parent);
+    }
+    @Test
+    void createCategoryWillThrowExceptionWhenParentNameIsInvalidTest() {
+        // Arrange
+        CategoryDto categoryDto = new CategoryDto("name", null, "parent-category");
+        ArgumentCaptor<Category> categoryArgumentCaptor = ArgumentCaptor.forClass(Category.class);
+        when(categoryRepo.findByName("parent-category")).thenReturn(Optional.empty());
+        // Act
+        // Assert
+        assertThatThrownBy(() -> underTest.createCategory(categoryDto))
+                .isInstanceOf(ResourceNotFoundException.class)
+                .hasMessage("Category not found with name: " + "parent-category");
     }
 
     @Test

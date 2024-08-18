@@ -13,4 +13,10 @@ public class CategoryMapper {
                 .subCategories(new ArrayList<>())
                 .build();
     }
+
+    public static Category convertToCategory(CategoryDto categoryDto){
+        return Category.builder()
+                .name(categoryDto.getName())
+                .build();
+    }
 }
