@@ -1,8 +1,10 @@
 package com.example.producttestapi.service;
 
+import com.example.producttestapi.dto.VoucherDto;
 import com.example.producttestapi.entities.Product;
 import com.example.producttestapi.entities.Voucher;
 import com.example.producttestapi.exception.ResourceNotFoundException;
+import com.example.producttestapi.mapper.VoucherMapper;
 import com.example.producttestapi.repos.VoucherRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,10 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static com.example.producttestapi.mapper.VoucherMapper.convertToVoucher;
+import static com.example.producttestapi.mapper.VoucherMapper.convertToVoucherDto;
 
 @Service
 public class VoucherServiceImpl implements VoucherService {
@@ -22,26 +28,36 @@ public class VoucherServiceImpl implements VoucherService {
     }
 
     @Override
-    public List<Voucher> findAllVouchers() {
-        return voucherRepo.findAll();
+    public List<VoucherDto> findAllVouchers() {
+        return voucherRepo.findAll().stream().map(VoucherMapper::convertToVoucherDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Voucher findVoucherById(long id) {
+    public VoucherDto findVoucherById(long id) {
         Optional<Voucher> voucherOptional = voucherRepo.findById(id);
         if(voucherOptional.isEmpty()){
             throw new ResourceNotFoundException(String.format("Voucher not found with this id: %s", id));
         }
-        return voucherOptional.get();
+        return convertToVoucherDto(voucherOptional.get());
     }
 
     @Override
-    public Voucher createVoucher(Voucher voucher) {
-        return voucherRepo.save(voucher);
+    public void createVoucher(VoucherDto voucherDto) {
+        voucherRepo.save(convertToVoucher(voucherDto));
     }
 
     @Override
     public Voucher findVoucherByCode(String code) {
+        return getVoucherByCode(code);
+    }
+
+    @Override
+    public VoucherDto findVoucherDtoByCode(String code) {
+        return convertToVoucherDto(getVoucherByCode(code));
+    }
+
+    private Voucher getVoucherByCode(String code){
         Optional<Voucher> optionalVoucher = voucherRepo.findByCode(code);
         if (optionalVoucher.isEmpty()) {
             throw new ResourceNotFoundException("Voucher not found with this code : " + code);

@@ -6,6 +6,7 @@ import com.example.producttestapi.entities.Product;
 
 import com.example.producttestapi.entities.Voucher;
 import com.example.producttestapi.exception.ResourceNotFoundException;
+import com.example.producttestapi.mapper.ProductMapper;
 import com.example.producttestapi.repos.ProductRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class ProductServiceImpl implements ProductService {
             voucherService.applyVoucherOnProduct(product);
         }
         List<ProductDto> result = products.stream()
-                .map(p -> convertToProductDto(p)).collect(Collectors.toList());
+                .map(ProductMapper::convertToProductDto).collect(Collectors.toList());
         return result;
     }
 
@@ -51,7 +52,7 @@ public class ProductServiceImpl implements ProductService {
     @Cacheable(value = "productId", key = "#id")
     public ProductDto getProductById(int id) {
         Optional<Product> optionalProduct = productRepo.findById(id);
-        if (!optionalProduct.isPresent()) {
+        if (optionalProduct.isEmpty()) {
             throw new ResourceNotFoundException("Product not found with id: " + id);
         }
         Product product = optionalProduct.get();
@@ -67,7 +68,7 @@ public class ProductServiceImpl implements ProductService {
         for (Product product : products) {
             voucherService.applyVoucherOnProduct(product);
         }
-        return products.stream().map(product -> convertToProductDto(product)).collect(Collectors.toList());
+        return products.stream().map(ProductMapper::convertToProductDto).collect(Collectors.toList());
     }
 
     @Override

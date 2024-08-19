@@ -1,16 +1,18 @@
 package com.example.producttestapi.service;
 
+import com.example.producttestapi.dto.VoucherDto;
 import com.example.producttestapi.entities.Product;
 import com.example.producttestapi.entities.Voucher;
 
 import java.util.List;
-import java.util.Optional;
+
 
 public interface VoucherService {
-    List<Voucher> findAllVouchers();
-    Voucher findVoucherById(long id);
-    Voucher createVoucher(Voucher voucher);
+    List<VoucherDto> findAllVouchers();
+    VoucherDto findVoucherById(long id);
+    void createVoucher(VoucherDto voucherDto);
     Voucher findVoucherByCode(String code);
+    VoucherDto findVoucherDtoByCode(String code);
     void deleteVoucher(Long id);
     void applyVoucherOnProduct(Product product);
 }
