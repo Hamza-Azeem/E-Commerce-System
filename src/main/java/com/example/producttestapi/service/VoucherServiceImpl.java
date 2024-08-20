@@ -3,6 +3,7 @@ package com.example.producttestapi.service;
 import com.example.producttestapi.dto.VoucherDto;
 import com.example.producttestapi.entities.Product;
 import com.example.producttestapi.entities.Voucher;
+import com.example.producttestapi.exception.DuplicateResourceException;
 import com.example.producttestapi.exception.ResourceNotFoundException;
 import com.example.producttestapi.mapper.VoucherMapper;
 import com.example.producttestapi.repos.VoucherRepo;
@@ -44,6 +45,9 @@ public class VoucherServiceImpl implements VoucherService {
 
     @Override
     public void createVoucher(VoucherDto voucherDto) {
+        if(voucherRepo.findByCode(voucherDto.getCode()).isPresent()){
+            throw new DuplicateResourceException("Voucher code already exists");
+        }
         voucherRepo.save(convertToVoucher(voucherDto));
     }
 

@@ -2,9 +2,12 @@ package com.example.producttestapi.service;
 
 import com.example.producttestapi.dto.CategoryDto;
 import com.example.producttestapi.entities.Category;
+import com.example.producttestapi.exception.DuplicateResourceException;
+import com.example.producttestapi.exception.InValidRequestException;
 import com.example.producttestapi.exception.ResourceNotFoundException;
 import com.example.producttestapi.mapper.CategoryMapper;
 import com.example.producttestapi.repos.CategoryRepo;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -67,6 +70,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @CacheEvict(value = "categories", allEntries = true)
     public void createCategory(CategoryDto categoryDto) {
+        if(categoryRepo.findByName(categoryDto.getName()).isPresent()) {
+            throw new DuplicateResourceException("Category name already exists");
+        }
         Category category = convertToCategory(categoryDto);
         if(categoryDto.getParentCategoryName() != null){
             Category parent = getCategoryByName(categoryDto.getParentCategoryName());

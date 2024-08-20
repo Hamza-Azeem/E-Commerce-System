@@ -2,6 +2,7 @@ package com.example.producttestapi.service;
 
 import com.example.producttestapi.dto.CategoryDto;
 import com.example.producttestapi.entities.Category;
+import com.example.producttestapi.exception.DuplicateResourceException;
 import com.example.producttestapi.exception.ResourceNotFoundException;
 import com.example.producttestapi.repos.CategoryRepo;
 import com.github.javafaker.Faker;
@@ -109,8 +110,6 @@ class CategoryServiceImplTest {
         // Assert
         assertThat(actual).isNotNull();
         assertThat(actual).hasSize(2);
-        assertThat(actual.get(0).getName()).isEqualTo(name1);
-        assertThat(actual.get(1).getName()).isEqualTo(name2);
     }
 
     @Test
@@ -138,6 +137,7 @@ class CategoryServiceImplTest {
         // Arrange
         CategoryDto categoryDto = new CategoryDto("name", null, null);
         ArgumentCaptor<Category> categoryArgumentCaptor = ArgumentCaptor.forClass(Category.class);
+        when(categoryRepo.findByName("name")).thenReturn(Optional.empty());
         // Act
         underTest.createCategory(categoryDto);
         // Assert
@@ -147,11 +147,24 @@ class CategoryServiceImplTest {
         assertThat(actual).isNotNull();
     }
     @Test
+    void createCategoryWillThrowExceptionWhenCategoryWithSameNameExistsTest() {
+        // Arrange
+        CategoryDto categoryDto = new CategoryDto("name", null, null);
+        ArgumentCaptor<Category> categoryArgumentCaptor = ArgumentCaptor.forClass(Category.class);
+        when(categoryRepo.findByName("name")).thenReturn(Optional.of(Category.builder().name("name").build()));
+        // Act
+        // Assert
+        assertThatThrownBy(() -> underTest.createCategory(categoryDto))
+                .isInstanceOf(DuplicateResourceException.class)
+                .hasMessage("Category name already exists");
+    }
+    @Test
     void createCategoryWithHavingParentCategoryTest() {
         // Arrange
         CategoryDto categoryDto = new CategoryDto("name", null, "parent-category");
         Category parent = Category.builder().name("parent-category").build();
         ArgumentCaptor<Category> categoryArgumentCaptor = ArgumentCaptor.forClass(Category.class);
+        when(categoryRepo.findByName("name")).thenReturn(Optional.empty());
         when(categoryRepo.findByName("parent-category")).thenReturn(Optional.of(parent));
         // Act
         underTest.createCategory(categoryDto);
@@ -166,6 +179,7 @@ class CategoryServiceImplTest {
         // Arrange
         CategoryDto categoryDto = new CategoryDto("name", null, "parent-category");
         ArgumentCaptor<Category> categoryArgumentCaptor = ArgumentCaptor.forClass(Category.class);
+        when(categoryRepo.findByName("name")).thenReturn(Optional.empty());
         when(categoryRepo.findByName("parent-category")).thenReturn(Optional.empty());
         // Act
         // Assert

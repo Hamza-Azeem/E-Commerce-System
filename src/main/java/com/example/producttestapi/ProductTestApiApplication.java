@@ -17,23 +17,23 @@ public class ProductTestApiApplication {
     public static void main(String[] args) {
         SpringApplication.run(ProductTestApiApplication.class, args);
     }
-    @Bean
-    public CommandLineRunner commandLineRunner(RoleRepo roleRepo, UserRepo userRepo, PasswordEncoder passwordEncoder){
-        return args -> {
-            if(roleRepo.findByName("ADMIN") == null){
-                Role role = new Role("ADMIN");
-                roleRepo.save(role);
-            }
-            if(userRepo.findByEmail("admin@example.com") == null){
-                User user = User.builder()
-                        .email("admin@example.com")
-                        .firstName("admin")
-                        .password(passwordEncoder.encode("admin"))
-                        .build();
-                user.addRole(roleRepo.findByName("ADMIN"));
-                userRepo.save(user);
-            }
-        };
-    }
+//    @Bean
+//    public CommandLineRunner commandLineRunner(RoleRepo roleRepo, UserRepo userRepo, PasswordEncoder passwordEncoder){
+//        return args -> {
+//            if(roleRepo.findByName("ADMIN") == null){
+//                Role role = new Role("ADMIN");
+//                roleRepo.save(role);
+//            }
+//            if(userRepo.findByEmail("admin@example.com") == null){
+//                User user = User.builder()
+//                        .email("admin@example.com")
+//                        .firstName("admin")
+//                        .password(passwordEncoder.encode("admin"))
+//                        .build();
+//                user.addRole(roleRepo.findByName("ADMIN"));
+//                userRepo.save(user);
+//            }
+//        };
+//    }
 
 }

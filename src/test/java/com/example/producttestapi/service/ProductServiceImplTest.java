@@ -44,16 +44,18 @@ class ProductServiceImplTest {
     @Test
     void getAllProductsTest() {
         // Arrange
-        Product product = new Product(
-                "product1",
-                "description",
-                25
-        );
-        Product product2 = new Product(
-                "product2",
-                "description2",
-                252
-        );
+        Product product = Product.builder()
+                .name("product1")
+                .description("description1")
+                .price(251)
+                .category(new Category("Test"))
+                .build();
+        Product product2 = Product.builder()
+                .name("product2")
+                .description("description2")
+                .price(252)
+                .category(new Category("Test"))
+                .build();
         List<Product> products = Arrays.asList(product, product2);
         // Act
         when(productRepo.findAll()).thenReturn(products);

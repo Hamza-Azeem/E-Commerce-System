@@ -5,6 +5,7 @@ import com.example.producttestapi.entities.Voucher;
 import com.example.producttestapi.service.VoucherService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,7 +58,7 @@ public class VoucherController {
             }
     )
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody VoucherDto voucherDto) {
+    public ResponseEntity<?> create(@Valid @RequestBody VoucherDto voucherDto) {
         voucherService.createVoucher(voucherDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

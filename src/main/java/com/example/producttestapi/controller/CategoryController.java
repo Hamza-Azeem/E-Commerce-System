@@ -4,6 +4,7 @@ import com.example.producttestapi.dto.CategoryDto;
 import com.example.producttestapi.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -138,7 +139,7 @@ public class CategoryController {
             }
     )
     @PostMapping
-    public ResponseEntity<?> createCategory(@RequestBody CategoryDto categoryDto) {
+    public ResponseEntity<?> createCategory(@Valid @RequestBody CategoryDto categoryDto) {
         categoryService.createCategory(categoryDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

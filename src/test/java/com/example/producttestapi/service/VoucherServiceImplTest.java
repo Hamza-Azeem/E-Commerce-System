@@ -3,6 +3,7 @@ package com.example.producttestapi.service;
 import com.example.producttestapi.dto.VoucherDto;
 import com.example.producttestapi.entities.Product;
 import com.example.producttestapi.entities.Voucher;
+import com.example.producttestapi.exception.DuplicateResourceException;
 import com.example.producttestapi.exception.ResourceNotFoundException;
 import com.example.producttestapi.repos.VoucherRepo;
 import com.github.javafaker.Faker;
@@ -87,6 +88,7 @@ class VoucherServiceImplTest {
                 discount,
                 expireDate
         );
+        when(voucherRepo.findByCode(code)).thenReturn(Optional.empty());
         ArgumentCaptor<Voucher> argumentCaptor = ArgumentCaptor.forClass(Voucher.class);
         // Act
         underTest.createVoucher(voucherDto);
@@ -96,6 +98,25 @@ class VoucherServiceImplTest {
         assertThat(actual.getCode()).isEqualTo(code);
         assertThat(actual.getDiscount()).isEqualTo(discount);
         assertThat(actual.getExpireDate()).isEqualTo(expireDate);
+    }
+    @Test
+    void createVoucherWillThrowExceptionWhenVoucherCodeExistsTest() {
+        // Arrange
+        String code = faker.code().asin();
+        BigDecimal discount = BigDecimal.valueOf(faker.number().randomNumber());
+        LocalDate expireDate = LocalDate.now().plusDays(1);
+        VoucherDto voucherDto = new VoucherDto(
+                code,
+                discount,
+                expireDate
+        );
+        when(voucherRepo.findByCode(code)).thenReturn(Optional.of(Voucher.builder().code(code).build()));
+        ArgumentCaptor<Voucher> argumentCaptor = ArgumentCaptor.forClass(Voucher.class);
+        // Act
+        // Assert
+        assertThatThrownBy(()-> underTest.createVoucher(voucherDto))
+                .isInstanceOf(DuplicateResourceException.class)
+                .hasMessage("Voucher code already exists");
     }
 
     @Test

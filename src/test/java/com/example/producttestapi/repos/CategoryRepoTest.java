@@ -1,11 +1,11 @@
 package com.example.producttestapi.repos;
 
-import com.example.producttestapi.AbstractTestcontainers;
 import com.example.producttestapi.entities.Category;
-import com.github.javafaker.Cat;
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
@@ -15,10 +15,11 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class CategoryRepoTest extends AbstractTestcontainers {
+@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
+public class CategoryRepoTest {
     @Autowired
     private CategoryRepo underTest;
+    private final Faker faker = new Faker();
 
     @BeforeEach
     void setUp() {

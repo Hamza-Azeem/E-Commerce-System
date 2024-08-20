@@ -1,9 +1,10 @@
 package com.example.producttestapi.repos;
 
-import com.example.producttestapi.AbstractTestcontainers;
 import com.example.producttestapi.entities.Voucher;
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
@@ -12,14 +13,14 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class VoucherRepoTest extends AbstractTestcontainers {
+@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
+class VoucherRepoTest {
 
     @Autowired
     private VoucherRepo underTest;
+    private final Faker faker = new Faker();
 
     @Test
     void findByCode() {

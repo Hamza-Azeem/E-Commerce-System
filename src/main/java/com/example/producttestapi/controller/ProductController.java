@@ -6,6 +6,7 @@ import com.example.producttestapi.entities.Product;
 import com.example.producttestapi.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -102,7 +103,7 @@ public class ProductController {
             }
     )
     @PostMapping
-    public ResponseEntity<?> createProduct(@RequestBody ProductDto productDto) {
+    public ResponseEntity<?> createProduct(@Valid @RequestBody ProductDto productDto) {
         productService.createProduct(productDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -129,7 +130,7 @@ public class ProductController {
             }
     )
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDto> updateProduct(@PathVariable int id, @RequestBody ProductDto productDto) {
+    public ResponseEntity<ProductDto> updateProduct(@PathVariable int id, @Valid @RequestBody ProductDto productDto) {
         return ResponseEntity.ok().body(productService.updateProduct(id, productDto));
     }
     @Operation(

@@ -22,6 +22,7 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
     private int id ;
+    @Column(unique = true)
     private String name;
     @OneToMany(mappedBy = "category")
     @JsonIgnore
