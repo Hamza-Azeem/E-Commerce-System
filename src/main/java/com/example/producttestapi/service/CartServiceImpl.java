@@ -10,6 +10,8 @@ import com.example.producttestapi.exception.ResourceNotFoundException;
 import com.example.producttestapi.model.BuyingRequest;
 import com.example.producttestapi.repos.CartRepo;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -23,10 +25,11 @@ public class CartServiceImpl implements CartService{
     private final CartItemService  cartItemService;
     private final ProductService productService;
     private final VoucherService voucherService;
+    private final Logger logger = LoggerFactory.getLogger(CartServiceImpl.class);
 
-    public CartServiceImpl(CartRepo cartRepo, UserService userService, UserService userService1, CartItemService cartItemService, ProductService productService, VoucherService voucherService) {
+    public CartServiceImpl(CartRepo cartRepo, UserService userService, CartItemService cartItemService, ProductService productService, VoucherService voucherService) {
         this.cartRepo = cartRepo;
-        this.userService = userService1;
+        this.userService = userService;
         this.cartItemService = cartItemService;
         this.productService = productService;
         this.voucherService = voucherService;
@@ -35,6 +38,7 @@ public class CartServiceImpl implements CartService{
     @Override
     public void saveCart(Cart cart) {
         cartRepo.save(cart);
+
     }
 
     @Override
@@ -52,6 +56,7 @@ public class CartServiceImpl implements CartService{
         user.setCart(null);
         userService.updateUserCart(user);
         cartRepo.delete(cart);
+        logger.info("User [{}] delete his cart", userEmail);
     }
 
     @Override
@@ -62,6 +67,7 @@ public class CartServiceImpl implements CartService{
         Cart cart = findUserCart(authentication.getName());
         if(cart.getItems().containsKey(cartItem.getProduct().getId())){
             if(count <= 0 || count > cartItem.getQuantity()){
+                logger.warn("User: [{}] tried to remove quantity= [{}] of cartItem: [{}] while he only has quantity= [{}]", authentication.getName(), count, cartItem.getId(), cartItem.getQuantity());
                 throw new InValidRequestException("Quantity to remove is not valid.");
             }
             updateCartPriceAndQuantityWhenRemovingItem(cart, cartItem, count);
@@ -88,6 +94,8 @@ public class CartServiceImpl implements CartService{
         String userEmail = authentication.getName();
         Product product = productService.getActualProductById(buyingRequest.getProductId());
         if(!isValidQuantity(product, buyingRequest.getCount())){
+            logger.warn("User: [{}] tried to add quantity= [{}] of product: [{}] while product has only quantity of= [{}]",
+                    userEmail, buyingRequest.getCount(), buyingRequest.getProductId(), product.getQuantityInStore());
             throw new InValidRequestException("Quantity to take out of range.");
         }
         User user = userService.findUserByEmail(userEmail);
@@ -95,6 +103,7 @@ public class CartServiceImpl implements CartService{
         if (cart == null) {
             cart = new Cart(user);
             saveCart(cart);
+            logger.info("User [{}] created a new cart", cart.getUser().getEmail());
         }
         double currentPrice = product.getPrice();
         voucherService.applyVoucherOnProduct(product);
@@ -106,6 +115,7 @@ public class CartServiceImpl implements CartService{
         }else{
             cartItemService.saveCartItem(cartItem);
             cart.addItem(cartItem);
+            logger.info("Cart item: [{}] with quantity = [{}] added to cart with id: [{}]", cartItem.getId(), buyingRequest.getCount(), cart.getId());
         }
         updateProductQuantity(product, buyingRequest.getCount(), '-');
         saveCart(cart);
@@ -132,6 +142,8 @@ public class CartServiceImpl implements CartService{
         cart.setTotalItems(cart.getTotalItems() + newQuantity);
         cart.setTotalPrice(cart.getTotalPrice() + newQuantity * oldCartItem.getPricePerItem());
         cartItemService.updateCartItem(oldCartItem);
+        logger.info("Cart item: [{}] with quantity = [{}] added to cart with id: [{}]", oldCartItem.getId(), newQuantity, cart.getId());
+
     }
     @Transactional
     protected void updateCartPriceAndQuantityWhenRemovingItem(Cart cart, CartItem cartItem, int count){
@@ -145,5 +157,6 @@ public class CartServiceImpl implements CartService{
             cartItemService.saveCartItem(cartItem);
         }
         updateProductQuantity(cartItem.getProduct(), count, '+');
+        logger.info("Cart item: [{}] with quantity = [{}] removed from cart with id: [{}]", cartItem.getId(), count, cartItem.getCart().getId());
     }
 }

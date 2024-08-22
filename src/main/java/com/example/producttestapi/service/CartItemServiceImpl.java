@@ -4,6 +4,8 @@ package com.example.producttestapi.service;
 import com.example.producttestapi.entities.CartItem;
 import com.example.producttestapi.exception.ResourceNotFoundException;
 import com.example.producttestapi.repos.CartItemRepo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -11,6 +13,7 @@ import java.util.Optional;
 @Service
 public class CartItemServiceImpl implements CartItemService {
     private final CartItemRepo cartItemRepo;
+    private final Logger logger = LoggerFactory.getLogger(CategoryServiceImpl.class);
 
     public CartItemServiceImpl(CartItemRepo cartItemRepo) {
         this.cartItemRepo = cartItemRepo;
