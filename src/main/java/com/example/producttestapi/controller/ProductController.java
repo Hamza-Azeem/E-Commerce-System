@@ -39,8 +39,12 @@ public class ProductController {
             }
     )
     @GetMapping
-    public ResponseEntity<List<ProductDto>> getAllProducts() {
-        return ResponseEntity.ok().body(productService.getAllProducts());
+    public ResponseEntity<?> getAllProducts(
+            @RequestParam(defaultValue = "0") int pageNum,
+            @RequestParam(defaultValue = "5") int pageSize,
+            @RequestParam(defaultValue = "id") String sortBy
+    ) {
+        return ResponseEntity.ok().body(productService.getAllProducts(pageNum, pageSize, sortBy));
     }
     @Operation(
             description = "GET endpoint to retrieve ProductDto by product ID",
@@ -82,8 +86,13 @@ public class ProductController {
             }
     )
     @GetMapping("/category/{categoryID}")
-    public ResponseEntity<List<ProductDto>> getProductsByCategory(@PathVariable("categoryID") int categoryID) {
-        return ResponseEntity.ok().body(productService.getProductsByCategory(categoryID));
+    public ResponseEntity<List<ProductDto>> getProductsByCategory(
+            @PathVariable("categoryID") int categoryID,
+            @RequestParam(defaultValue = "0") int pageNum,
+            @RequestParam(defaultValue = "5") int pageSize,
+            @RequestParam(defaultValue = "id") String sortBy
+    ) {
+        return ResponseEntity.ok().body(productService.getProductsByCategory(categoryID, pageNum, pageSize, sortBy));
     }
     @Operation(
             description = "POST endpoint to create a new product",

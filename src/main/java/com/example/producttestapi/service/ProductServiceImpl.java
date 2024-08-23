@@ -14,6 +14,10 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,15 +41,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Cacheable(value = "products", key = "'all'")
-    public List<ProductDto> getAllProducts() {
-        List<Product> products = productRepo.findAll();
+    @Cacheable(value = "products", key = "#pageNum + #pageSize + #sortBy")
+    public List<ProductDto> getAllProducts(int pageNum, int pageSize, String sortBy) {
+        Pageable page = PageRequest.of(pageNum, pageSize, Sort.by(sortBy));
+        List<Product> products = productRepo.findAll(page).getContent();
         for (Product product : products) {
             voucherService.applyVoucherOnProduct(product);
         }
-        List<ProductDto> result = products.stream()
+        return products.stream()
                 .map(ProductMapper::convertToProductDto).collect(Collectors.toList());
-        return result;
     }
 
     @Override
@@ -61,10 +65,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @Cacheable(value = "products", key = "'category' + #categoryID")
-    public List<ProductDto> getProductsByCategory(int categoryID) {
+    @Cacheable(value = "products", key = "#categoryID + #pageNum + #pageSize + #sortBy")
+    public List<ProductDto> getProductsByCategory(int categoryID, int pageNum, int pageSize, String sortBy) {
         categoryService.getCategory(categoryID);
-        List<Product> products = productRepo.findByCategory(categoryID);
+        Pageable page = PageRequest.of(pageNum, pageSize, Sort.by(sortBy));
+        List<Product> products = productRepo.findByCategory(categoryID, page);
         for (Product product : products) {
             voucherService.applyVoucherOnProduct(product);
         }

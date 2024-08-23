@@ -13,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.*;
 
 
 import java.math.BigDecimal;
@@ -57,11 +58,13 @@ class ProductServiceImplTest {
                 .category(new Category("Test"))
                 .build();
         List<Product> products = Arrays.asList(product, product2);
+        Pageable page = PageRequest.of(0,2, Sort.by("id"));
+        Page<Product> productPage = new PageImpl<>(products, page, products.size());
+        when(productRepo.findAll(page)).thenReturn(productPage);
         // Act
-        when(productRepo.findAll()).thenReturn(products);
-        underTest.getAllProducts();
+        underTest.getAllProducts(0,2,"id");
         // Assert
-        verify(productRepo).findAll();
+        verify(productRepo).findAll(page);
         verify(voucherService).applyVoucherOnProduct(product);
         verify(voucherService).applyVoucherOnProduct(product2);
     }
@@ -113,11 +116,12 @@ class ProductServiceImplTest {
                 .category(category)
                 .build();
         List<Product> products = Arrays.asList(product, product2);
-        when(productRepo.findByCategory(categoryId)).thenReturn(products);
+        Pageable pageable = PageRequest.of(0, 2, Sort.by("id"));
+        when(productRepo.findByCategory(categoryId, pageable)).thenReturn(products);
         // Act
-        underTest.getProductsByCategory(categoryId);
+        underTest.getProductsByCategory(categoryId, 0, 2, "id");
         // Assert
-        verify(productRepo).findByCategory(categoryId);
+        verify(productRepo).findByCategory(categoryId, pageable);
         verify(voucherService).applyVoucherOnProduct(product);
         verify(voucherService).applyVoucherOnProduct(product2);
     }
@@ -128,7 +132,7 @@ class ProductServiceImplTest {
         when(categoryService.getCategory(categoryId))
                 .thenThrow(ResourceNotFoundException.class);
         // Assert
-        assertThatThrownBy(() -> underTest.getProductsByCategory(categoryId))
+        assertThatThrownBy(() -> underTest.getProductsByCategory(categoryId, 0, 2, "id"))
                 .isInstanceOf(ResourceNotFoundException.class);
     }
     @Test
