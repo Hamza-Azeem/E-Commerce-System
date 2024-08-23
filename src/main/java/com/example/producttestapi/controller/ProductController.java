@@ -3,6 +3,7 @@ package com.example.producttestapi.controller;
 import com.example.producttestapi.dto.ProductDto;
 import com.example.producttestapi.entities.Product;
 
+import com.example.producttestapi.model.ProductSearch;
 import com.example.producttestapi.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -66,6 +67,20 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getProduct(@PathVariable("id") int id) {
         return ResponseEntity.ok().body(productService.getProductById(id));
+    }
+    @GetMapping("/search")
+    public ResponseEntity<?> searchProducts(
+            @RequestParam(defaultValue = "0") int pageNum,
+            @RequestParam(defaultValue = "5") int pageSize,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "") String productName,
+            @RequestParam(defaultValue = "") String categoryName,
+            @RequestParam(defaultValue = "-1") double minimumPrice,
+            @RequestParam(defaultValue = "0") double maximumPrice
+            ){
+        return ResponseEntity.ok().body(productService.searchProducts(
+                new ProductSearch(productName, categoryName, minimumPrice, maximumPrice), pageNum, pageSize, sortBy
+        ));
     }
 
     @Operation(

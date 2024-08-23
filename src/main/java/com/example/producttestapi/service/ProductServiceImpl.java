@@ -7,6 +7,7 @@ import com.example.producttestapi.entities.Product;
 import com.example.producttestapi.entities.Voucher;
 import com.example.producttestapi.exception.ResourceNotFoundException;
 import com.example.producttestapi.mapper.ProductMapper;
+import com.example.producttestapi.model.ProductSearch;
 import com.example.producttestapi.repos.ProductRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,13 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import specification.ProductSpecification;
 
 import java.util.List;
 import java.util.Optional;
@@ -125,7 +129,6 @@ public class ProductServiceImpl implements ProductService {
         if (optionalProduct.isEmpty()) {
             throw new ResourceNotFoundException("Product not found with id: " + id);
         }
-        Product product = optionalProduct.get();
         productRepo.deleteById(id);
     }
 
@@ -152,5 +155,18 @@ public class ProductServiceImpl implements ProductService {
             throw new ResourceNotFoundException("Product not found with id: " + product.getId());
         }
         productRepo.save(product);
+    }
+
+    @Override
+    public List<ProductDto> searchProducts(ProductSearch productSearch,
+                                           int pageNum, int pageSize,
+                                           String sortBy) {
+        Specification<Product> productSpecification = ProductSpecification.filter(productSearch);
+        Pageable pageable = PageRequest.of(pageNum, pageSize, Sort.by(sortBy));
+        List<Product> products = productRepo.findAll(productSpecification, pageable).getContent();
+        for(Product product : products) {
+            voucherService.applyVoucherOnProduct(product);
+        }
+        return products.stream().map(ProductMapper::convertToProductDto).collect(Collectors.toList());
     }
 }
