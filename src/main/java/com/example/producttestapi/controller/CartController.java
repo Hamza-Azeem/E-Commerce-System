@@ -17,7 +17,7 @@ public class CartController {
         this.cartService = cartService;
     }
     @GetMapping
-    public ResponseEntity<CartDto> getCart() {
+    public ResponseEntity<?> getCart() {
         return ResponseEntity.ok(cartService.findUserCart());
     }
     @PostMapping("/add-item")

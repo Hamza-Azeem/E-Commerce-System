@@ -16,6 +16,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
 import static com.example.producttestapi.mapper.CartMapper.convertToCartDto;
 
 @Service
@@ -79,10 +85,13 @@ public class CartServiceImpl implements CartService{
     public CartDto findUserCart() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = authentication.getName();
-        return convertToCartDto(cartRepo.findCartByUserEmail(userEmail).orElseThrow(
-                () -> new ResourceNotFoundException("You don't have a cart."))
-        );
+        Optional<Cart> cartOptional = cartRepo.findCartByUserEmail(userEmail);
+        if(cartOptional.isEmpty()){
+            throw new ResourceNotFoundException("You don't have a cart!");
+        }
+        return convertToCartDto(cartOptional.get());
     }
+
     @Override
     public Cart findUserCart(String email) {
         return cartRepo.findCartByUserEmail(email).orElse(null);
@@ -92,71 +101,124 @@ public class CartServiceImpl implements CartService{
     public CartDto addItemToCart(BuyingRequest buyingRequest) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = authentication.getName();
+
         Product product = productService.getActualProductById(buyingRequest.getProductId());
-        if(!isValidQuantity(product, buyingRequest.getCount())){
-            logger.warn("User: [{}] tried to add quantity= [{}] of product: [{}] while product has only quantity of= [{}]",
-                    userEmail, buyingRequest.getCount(), buyingRequest.getProductId(), product.getQuantityInStore());
-            throw new InValidRequestException("Quantity to take out of range.");
-        }
         User user = userService.findUserByEmail(userEmail);
-        Cart cart = findUserCart(userEmail);
+        Cart cart = initializeUserCart(user);
+
+        voucherService.applyVoucherOnProduct(product);
+        double priceAfterVoucher = roundToTwoDecimal(product.getPrice());
+
+        if (cart.getItems().containsKey(product.getId())) {
+            CartItem existingCartItem = cart.getItems().get(product.getId());
+            addQuantityToExistingCartItem(userEmail, buyingRequest, product, cart, existingCartItem);
+        } else {
+            addNewCartItemToCart(userEmail, buyingRequest, product, cart, priceAfterVoucher);
+        }
+
+        updateUserAndCart(user, cart);
+        return convertToCartDto(cart);
+    }
+
+    private Cart initializeUserCart(User user) {
+        Cart cart = user.getCart();
         if (cart == null) {
             cart = new Cart(user);
             saveCart(cart);
-            logger.info("User [{}] created a new cart", cart.getUser().getEmail());
+            logger.info("User [{}] created a new cart", user.getEmail());
         }
-        double currentPrice = product.getPrice();
-        voucherService.applyVoucherOnProduct(product);
-        double priceAfterVoucher = product.getPrice();
-        product.setPrice(currentPrice);
+        return cart;
+    }
+
+    private void addQuantityToExistingCartItem(String userEmail, BuyingRequest buyingRequest, Product product, Cart cart, CartItem existingCartItem) {
+        int newQuantity = existingCartItem.getQuantity() + buyingRequest.getCount();
+        if (!isValidQuantity(product, newQuantity)) {
+            logInvalidQuantity(userEmail, buyingRequest, product);
+            throw new InValidRequestException("Quantity to take out of range.");
+        }
+        updateCartPriceAndQuantityWhenAddingItem(cart, existingCartItem, buyingRequest.getCount());
+    }
+
+    private void addNewCartItemToCart(String userEmail, BuyingRequest buyingRequest, Product product, Cart cart, double priceAfterVoucher) {
+        if (!isValidQuantity(product, buyingRequest.getCount())) {
+            logInvalidQuantity(userEmail, buyingRequest, product);
+            throw new InValidRequestException("Quantity to take out of range.");
+        }
         CartItem cartItem = new CartItem(product, product.getName(), buyingRequest.getCount(), priceAfterVoucher, cart);
-        if(cart.getItems().containsKey(product.getId())){
-            updateCartPriceAndQuantityWhenAddingItem(cart, product, buyingRequest.getCount());
-        }else{
-            cartItemService.saveCartItem(cartItem);
-            cart.addItem(cartItem);
-            logger.info("Cart item: [{}] with quantity = [{}] added to cart with id: [{}]", cartItem.getId(), buyingRequest.getCount(), cart.getId());
-        }
-        updateProductQuantity(product, buyingRequest.getCount(), '-');
+        cartItemService.saveCartItem(cartItem);
+        cart.addItem(cartItem);
+        logCartItemAdded(cartItem.getId(), buyingRequest.getCount(), cart.getId());
+    }
+
+    private void logInvalidQuantity(String userEmail, BuyingRequest buyingRequest, Product product) {
+        logger.warn("User: [{}] tried to add quantity= [{}] of product: [{}] while product has only quantity of= [{}]",
+                userEmail, buyingRequest.getCount(), buyingRequest.getProductId(), product.getQuantityInStore());
+    }
+    private void logCartItemAdded(long cartItemId, int quantity, long cartId){
+        logger.info("Cart item: [{}] with quantity = [{}] added to cart with id: [{}]", cartItemId, quantity, cartId);
+    }
+
+    private void updateUserAndCart(User user, Cart cart) {
         saveCart(cart);
         user.setCart(cart);
         userService.updateUserCart(user);
-        return convertToCartDto(cart);
     }
+
+    @Override
+    public List<Cart> findCartsOlderThanTwoHours() {
+        LocalDateTime time = LocalDateTime.now().minusHours(2);
+        return cartRepo.findCartsOlderThanTwoHours(time);
+    }
+
+    @Override
+    public void deleteCartUsingSchedule(Cart cart) {
+        cartRepo.delete(cart);
+    }
+
     private boolean isValidQuantity(Product product, int quantity){
         return quantity > 0 && quantity <= product.getQuantityInStore();
     }
-    @Transactional
-    protected void updateProductQuantity(Product product, int quantity, char operator) {
-        if(operator == '-'){
-            product.setQuantityInStore(product.getQuantityInStore() - quantity);
-        }else {
-            product.setQuantityInStore(product.getQuantityInStore() + quantity);
-        }
-        productService.updateProductWhenUsingCart(product);
-    }
-    @Transactional
-    protected void updateCartPriceAndQuantityWhenAddingItem(Cart cart,Product product, int newQuantity) {
-        CartItem oldCartItem = cart.getItems().get(product.getId());
+
+    private void updateCartPriceAndQuantityWhenAddingItem(Cart cart, CartItem oldCartItem, int newQuantity) {
         oldCartItem.setQuantity(newQuantity + oldCartItem.getQuantity());
         cart.setTotalItems(cart.getTotalItems() + newQuantity);
         cart.setTotalPrice(cart.getTotalPrice() + newQuantity * oldCartItem.getPricePerItem());
         cartItemService.updateCartItem(oldCartItem);
-        logger.info("Cart item: [{}] with quantity = [{}] added to cart with id: [{}]", oldCartItem.getId(), newQuantity, cart.getId());
-
+        logCartItemAdded(oldCartItem.getId(), newQuantity, cart.getId());
     }
-    @Transactional
-    protected void updateCartPriceAndQuantityWhenRemovingItem(Cart cart, CartItem cartItem, int count){
+
+    private void updateCartPriceAndQuantityWhenRemovingItem(Cart cart, CartItem cartItem, int count){
         if(count == cartItem.getQuantity()){
             cart.removeItem(cartItem);
             cartItemService.deleteCartItem(cartItem);
         }else{
-            cart.setTotalPrice(cart.getTotalPrice() - (cartItem.getPricePerItem() * count));
+            double currentTotalPrice = cart.getTotalPrice();
+            double itemTotalPrice = cartItem.getPricePerItem() * count;
+            double newTotalPrice = roundToTwoDecimal(currentTotalPrice - itemTotalPrice);
+            cart.setTotalPrice(newTotalPrice);
+//            cart.setTotalPrice(cart.getTotalPrice() - (cartItem.getPricePerItem() * count));
             cart.setTotalItems(cart.getTotalItems() - count);
             cartItem.setQuantity(cartItem.getQuantity() - count);
             cartItemService.saveCartItem(cartItem);
         }
-        updateProductQuantity(cartItem.getProduct(), count, '+');
         logger.info("Cart item: [{}] with quantity = [{}] removed from cart with id: [{}]", cartItem.getId(), count, cartItem.getCart().getId());
     }
+
+    private double roundToTwoDecimal(double price){
+        BigDecimal priceBigDecimal = new BigDecimal(price);
+        return priceBigDecimal.setScale(2, RoundingMode.HALF_UP).doubleValue();
+    }
+    // unneeded feature
+    // Product quantity doesn't have to be changed when a user adds an item of this product to cart.
+    // It will only be changed when customer place an order.
+//    @Transactional
+//    protected void updateProductQuantity(Product product, int quantity, char operator) {
+//        if(operator == '-'){
+//            product.setQuantityInStore(product.getQuantityInStore() - quantity);
+//        }else {
+//            product.setQuantityInStore(product.getQuantityInStore() + quantity);
+//        }
+//        productService.updateProductWhenUsingCart(product);
+//    }
+
 }

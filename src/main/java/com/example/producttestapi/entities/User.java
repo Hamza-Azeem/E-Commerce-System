@@ -16,7 +16,6 @@ import java.util.Set;
 @Getter
 @Table(name = "my_user")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,7 +23,7 @@ public class User {
     private String lastName;
     private String password;
     private String email;
-    @OneToOne(cascade = CascadeType.DETACH)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "cart_id")
     private Cart cart;
     @ManyToMany(fetch = FetchType.EAGER)
