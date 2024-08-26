@@ -1,4 +1,4 @@
-package com.example.producttestapi.service;
+package com.example.producttestapi.service.impl;
 
 import com.example.producttestapi.dto.VoucherDto;
 import com.example.producttestapi.entities.Product;
@@ -7,6 +7,7 @@ import com.example.producttestapi.exception.DuplicateResourceException;
 import com.example.producttestapi.exception.ResourceNotFoundException;
 import com.example.producttestapi.mapper.VoucherMapper;
 import com.example.producttestapi.repos.VoucherRepo;
+import com.example.producttestapi.service.VoucherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

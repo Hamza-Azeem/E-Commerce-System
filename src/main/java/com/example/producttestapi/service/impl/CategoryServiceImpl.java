@@ -1,13 +1,12 @@
-package com.example.producttestapi.service;
+package com.example.producttestapi.service.impl;
 
 import com.example.producttestapi.dto.CategoryDto;
 import com.example.producttestapi.entities.Category;
 import com.example.producttestapi.exception.DuplicateResourceException;
-import com.example.producttestapi.exception.InValidRequestException;
 import com.example.producttestapi.exception.ResourceNotFoundException;
 import com.example.producttestapi.mapper.CategoryMapper;
 import com.example.producttestapi.repos.CategoryRepo;
-import org.apache.coyote.BadRequestException;
+import com.example.producttestapi.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;

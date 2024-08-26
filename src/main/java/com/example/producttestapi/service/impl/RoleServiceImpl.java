@@ -1,11 +1,12 @@
-package com.example.producttestapi.service;
+package com.example.producttestapi.service.impl;
 
 import com.example.producttestapi.entities.Role;
 import com.example.producttestapi.repos.RoleRepo;
+import com.example.producttestapi.service.RoleService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RoleServiceImpl implements RoleService{
+public class RoleServiceImpl implements RoleService {
     private final RoleRepo roleRepo;
 
     public RoleServiceImpl(RoleRepo roleRepo) {

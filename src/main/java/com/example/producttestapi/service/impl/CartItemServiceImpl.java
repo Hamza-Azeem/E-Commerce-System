@@ -1,9 +1,10 @@
-package com.example.producttestapi.service;
+package com.example.producttestapi.service.impl;
 
 
 import com.example.producttestapi.entities.CartItem;
 import com.example.producttestapi.exception.ResourceNotFoundException;
 import com.example.producttestapi.repos.CartItemRepo;
+import com.example.producttestapi.service.CartItemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

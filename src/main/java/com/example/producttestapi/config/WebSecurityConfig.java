@@ -30,6 +30,8 @@ public class WebSecurityConfig {
                       "/swagger-ui.html"
               ).permitAll();
               auth.requestMatchers(HttpMethod.GET, "/**").hasAnyAuthority("ADMIN","USER","MANAGER")
+                      .requestMatchers(HttpMethod.POST, "/cart/add-item").hasAnyAuthority("ADMIN","USER","MANAGER")
+                      .requestMatchers(HttpMethod.PUT, "/cart/update-item").hasAnyAuthority("ADMIN","USER","MANAGER")
                       .requestMatchers(HttpMethod.POST, "/**").hasAnyAuthority("ADMIN","MANAGER")
                       .requestMatchers(HttpMethod.DELETE,"/**").hasAnyAuthority("MANAGER");
               auth.anyRequest().permitAll();

@@ -1,4 +1,4 @@
-package com.example.producttestapi.service;
+package com.example.producttestapi.service.impl;
 
 import com.example.producttestapi.dto.CartDto;
 import com.example.producttestapi.entities.Cart;
@@ -9,6 +9,7 @@ import com.example.producttestapi.exception.InValidRequestException;
 import com.example.producttestapi.exception.ResourceNotFoundException;
 import com.example.producttestapi.model.BuyingRequest;
 import com.example.producttestapi.repos.CartRepo;
+import com.example.producttestapi.service.*;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,10 +26,10 @@ import java.util.Optional;
 import static com.example.producttestapi.mapper.CartMapper.convertToCartDto;
 
 @Service
-public class CartServiceImpl implements CartService{
+public class CartServiceImpl implements CartService {
     private final CartRepo cartRepo;
     private final UserService userService;
-    private final CartItemService  cartItemService;
+    private final CartItemService cartItemService;
     private final ProductService productService;
     private final VoucherService voucherService;
     private final Logger logger = LoggerFactory.getLogger(CartServiceImpl.class);

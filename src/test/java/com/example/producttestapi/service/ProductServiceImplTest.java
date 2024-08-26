@@ -6,6 +6,7 @@ import com.example.producttestapi.entities.Product;
 import com.example.producttestapi.entities.Voucher;
 import com.example.producttestapi.exception.ResourceNotFoundException;
 import com.example.producttestapi.repos.ProductRepo;
+import com.example.producttestapi.service.impl.ProductServiceImpl;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

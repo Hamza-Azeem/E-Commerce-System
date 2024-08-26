@@ -5,6 +5,7 @@ import com.example.producttestapi.entities.Category;
 import com.example.producttestapi.exception.DuplicateResourceException;
 import com.example.producttestapi.exception.ResourceNotFoundException;
 import com.example.producttestapi.repos.CategoryRepo;
+import com.example.producttestapi.service.impl.CategoryServiceImpl;
 import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

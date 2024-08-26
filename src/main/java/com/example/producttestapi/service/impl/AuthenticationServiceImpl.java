@@ -1,14 +1,16 @@
-package com.example.producttestapi.service;
+package com.example.producttestapi.service.impl;
 
 import com.example.producttestapi.model.RegistrationRequest;
 import com.example.producttestapi.exception.DuplicateResourceException;
+import com.example.producttestapi.service.AuthenticationService;
+import com.example.producttestapi.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthenticationServiceImpl implements AuthenticationService{
+public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final Logger logger = LoggerFactory.getLogger(AuthenticationServiceImpl.class);

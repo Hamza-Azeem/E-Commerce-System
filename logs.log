@@ -1,258 +1,37 @@
-2024-08-24T15:20:13.286+03:00  INFO 15408 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 15408 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
-2024-08-24T15:20:13.298+03:00  INFO 15408 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
-2024-08-24T15:20:17.096+03:00  INFO 15408 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-24T15:20:17.520+03:00  INFO 15408 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@117fb9ba
-2024-08-24T15:20:17.522+03:00  INFO 15408 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-24T15:20:19.800+03:00  WARN 15408 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-08-24T15:20:20.464+03:00  INFO 15408 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 8.306 seconds (process running for 9.287)
-2024-08-24T15:21:31.574+03:00  INFO 15408 --- [http-nio-8080-exec-3] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 375 ms
-2024-08-24T15:22:00.708+03:00  INFO 15408 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-24T15:22:00.716+03:00  INFO 15408 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-24T15:22:58.556+03:00  INFO 26324 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 26324 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
-2024-08-24T15:22:58.559+03:00  INFO 26324 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
-2024-08-24T15:23:00.590+03:00  INFO 26324 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-24T15:23:00.871+03:00  INFO 26324 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@145fe8ab
-2024-08-24T15:23:00.872+03:00  INFO 26324 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-24T15:23:02.791+03:00  WARN 26324 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-08-24T15:23:03.356+03:00  INFO 26324 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 5.313 seconds (process running for 6.081)
-2024-08-24T15:23:08.723+03:00  INFO 26324 --- [http-nio-8080-exec-2] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 305 ms
-2024-08-24T15:23:16.620+03:00  INFO 26324 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-24T15:23:16.627+03:00  INFO 26324 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-24T15:23:34.279+03:00  INFO 26108 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 26108 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
-2024-08-24T15:23:34.281+03:00  INFO 26108 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
-2024-08-24T15:23:36.180+03:00  INFO 26108 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-24T15:23:36.457+03:00  INFO 26108 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@727956bb
-2024-08-24T15:23:36.458+03:00  INFO 26108 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-24T15:23:38.375+03:00  WARN 26108 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-08-24T15:23:39.030+03:00  INFO 26108 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 5.22 seconds (process running for 5.938)
-2024-08-24T15:23:45.539+03:00  INFO 26108 --- [http-nio-8080-exec-8] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 326 ms
-2024-08-24T15:24:33.894+03:00  INFO 26108 --- [http-nio-8080-exec-1] c.e.p.service.CartServiceImpl            : User [hamza@gmail.com] created a new cart
-2024-08-24T15:24:33.897+03:00  INFO 26108 --- [http-nio-8080-exec-1] c.e.p.service.CartServiceImpl            : Cart item: [88] with quantity = [1] added to cart with id: [22]
-2024-08-24T15:25:30.472+03:00  INFO 26108 --- [http-nio-8080-exec-6] c.e.p.service.CartServiceImpl            : Cart item: [88] with quantity = [1] added to cart with id: [22]
-2024-08-24T15:25:45.888+03:00  INFO 26108 --- [http-nio-8080-exec-7] c.e.p.service.CartServiceImpl            : Cart item: [88] with quantity = [1] added to cart with id: [22]
-2024-08-24T15:25:46.551+03:00  INFO 26108 --- [http-nio-8080-exec-8] c.e.p.service.CartServiceImpl            : Cart item: [88] with quantity = [1] added to cart with id: [22]
-2024-08-24T15:26:00.662+03:00  WARN 26108 --- [http-nio-8080-exec-9] c.e.p.service.CartServiceImpl            : User: [hamza@gmail.com] tried to add quantity= [10] of product: [105] while product has only quantity of= [3]
-2024-08-24T15:26:07.258+03:00  WARN 26108 --- [http-nio-8080-exec-10] c.e.p.service.CartServiceImpl            : User: [hamza@gmail.com] tried to add quantity= [0] of product: [105] while product has only quantity of= [3]
-2024-08-24T15:26:16.825+03:00  INFO 26108 --- [http-nio-8080-exec-1] c.e.p.service.CartServiceImpl            : Cart item: [89] with quantity = [1] added to cart with id: [22]
-2024-08-24T15:27:20.272+03:00  WARN 26108 --- [http-nio-8080-exec-4] c.e.p.service.CartServiceImpl            : User: [hamza@gmail.com] tried to remove quantity= [0] of cartItem: [88] while he only has quantity= [4]
-2024-08-24T15:27:58.439+03:00  INFO 26108 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-24T15:27:58.446+03:00  INFO 26108 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-24T15:48:45.042+03:00  INFO 13504 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 13504 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
-2024-08-24T15:48:45.044+03:00  INFO 13504 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
-2024-08-24T15:48:47.189+03:00  INFO 13504 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-24T15:48:47.621+03:00  INFO 13504 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2b400bd0
-2024-08-24T15:48:48.277+03:00  INFO 13504 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-24T15:48:50.822+03:00  WARN 13504 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-08-24T15:48:51.498+03:00  INFO 13504 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 6.923 seconds (process running for 7.622)
-2024-08-24T15:49:47.258+03:00  INFO 13504 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-24T15:49:47.267+03:00  INFO 13504 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-24T15:50:32.741+03:00  INFO 20524 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 20524 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
-2024-08-24T15:50:32.744+03:00  INFO 20524 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
-2024-08-24T15:50:34.646+03:00  INFO 20524 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-24T15:50:34.923+03:00  INFO 20524 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@74a5bef0
-2024-08-24T15:50:34.925+03:00  INFO 20524 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-24T15:50:37.004+03:00  WARN 20524 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-08-24T15:50:37.577+03:00  INFO 20524 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 5.274 seconds (process running for 5.949)
-2024-08-24T15:50:56.107+03:00  INFO 20524 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-24T15:50:56.114+03:00  INFO 20524 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-24T15:51:49.588+03:00  INFO 23368 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 23368 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
-2024-08-24T15:51:49.590+03:00  INFO 23368 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
-2024-08-24T15:51:51.541+03:00  INFO 23368 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-24T15:51:51.838+03:00  INFO 23368 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3a751535
-2024-08-24T15:51:51.840+03:00  INFO 23368 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-24T15:51:53.808+03:00  WARN 23368 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-08-24T15:51:54.387+03:00  INFO 23368 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 5.252 seconds (process running for 5.995)
-2024-08-24T15:52:10.653+03:00  INFO 23368 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-24T15:52:10.659+03:00  INFO 23368 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-24T15:53:49.265+03:00  INFO 22992 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 22992 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
-2024-08-24T15:53:49.267+03:00  INFO 22992 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
-2024-08-24T15:53:51.186+03:00  INFO 22992 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-24T15:53:51.469+03:00  INFO 22992 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3a751535
-2024-08-24T15:53:51.471+03:00  INFO 22992 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-24T15:53:53.423+03:00  WARN 22992 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-08-24T15:53:53.994+03:00  INFO 22992 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 5.174 seconds (process running for 5.873)
-2024-08-24T15:54:19.238+03:00  INFO 22992 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-24T15:54:19.244+03:00  INFO 22992 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-24T15:55:35.935+03:00  INFO 7908 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 7908 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
-2024-08-24T15:55:35.937+03:00  INFO 7908 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
-2024-08-24T15:55:37.953+03:00  INFO 7908 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-24T15:55:38.237+03:00  INFO 7908 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@fceab5d
-2024-08-24T15:55:38.238+03:00  INFO 7908 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-24T15:55:40.188+03:00  WARN 7908 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-08-24T15:55:40.754+03:00  INFO 7908 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 5.271 seconds (process running for 5.953)
-2024-08-24T15:56:09.974+03:00  INFO 7908 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-24T15:56:09.980+03:00  INFO 7908 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-24T15:57:07.252+03:00  INFO 16552 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 16552 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
-2024-08-24T15:57:07.255+03:00  INFO 16552 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
-2024-08-24T15:57:09.433+03:00  INFO 16552 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-24T15:57:09.796+03:00  INFO 16552 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@fceab5d
-2024-08-24T15:57:09.798+03:00  INFO 16552 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-24T15:57:11.883+03:00  WARN 16552 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-08-24T15:57:12.537+03:00  INFO 16552 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 5.72 seconds (process running for 6.38)
-2024-08-24T15:57:39.925+03:00  INFO 16552 --- [http-nio-8080-exec-2] c.e.p.service.CartServiceImpl            : Cart item: [90] with quantity = [1] added to cart with id: [22]
-2024-08-24T16:13:36.358+03:00  INFO 16552 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-24T16:13:36.368+03:00  INFO 16552 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-24T16:14:17.752+03:00  INFO 3060 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 3060 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
-2024-08-24T16:14:17.754+03:00  INFO 3060 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
-2024-08-24T16:14:20.229+03:00  INFO 3060 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-24T16:14:20.531+03:00  INFO 3060 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@32513dea
-2024-08-24T16:14:20.533+03:00  INFO 3060 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-24T16:14:23.124+03:00  WARN 3060 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-08-24T16:14:23.756+03:00  INFO 3060 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 6.449 seconds (process running for 7.185)
-2024-08-24T16:14:30.679+03:00  INFO 3060 --- [http-nio-8080-exec-1] c.e.p.service.CartServiceImpl            : Cart item: [90] with quantity = [1] added to cart with id: [22]
-2024-08-24T16:14:52.440+03:00  INFO 3060 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-24T16:14:52.446+03:00  INFO 3060 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-24T16:15:15.003+03:00  INFO 1496 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 1496 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
-2024-08-24T16:15:15.006+03:00  INFO 1496 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
-2024-08-24T16:15:16.994+03:00  INFO 1496 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-24T16:15:17.273+03:00  INFO 1496 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@71e7c13f
-2024-08-24T16:15:17.275+03:00  INFO 1496 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-24T16:15:19.366+03:00  WARN 1496 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-08-24T16:15:19.991+03:00  INFO 1496 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 5.435 seconds (process running for 6.178)
-2024-08-24T16:15:24.256+03:00  INFO 1496 --- [http-nio-8080-exec-2] c.e.p.service.CartServiceImpl            : Cart item: [90] with quantity = [1] added to cart with id: [22]
-2024-08-24T16:15:52.580+03:00  INFO 1496 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-24T16:15:52.586+03:00  INFO 1496 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-24T16:19:23.099+03:00  INFO 25892 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 25892 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
-2024-08-24T16:19:23.101+03:00  INFO 25892 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
-2024-08-24T16:19:25.314+03:00  INFO 25892 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-24T16:19:25.708+03:00  INFO 25892 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6f655dbd
-2024-08-24T16:19:25.710+03:00  INFO 25892 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-24T16:19:27.790+03:00  WARN 25892 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-08-24T16:19:28.393+03:00  INFO 25892 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 5.754 seconds (process running for 6.485)
-2024-08-24T16:20:03.459+03:00  INFO 25892 --- [http-nio-8080-exec-1] c.e.p.service.CartServiceImpl            : Cart item: [90] with quantity = [2] removed from cart with id: [22]
-2024-08-24T16:20:21.269+03:00  WARN 25892 --- [http-nio-8080-exec-6] c.e.p.service.CartServiceImpl            : User: [hamza@gmail.com] tried to remove quantity= [2] of cartItem: [90] while he only has quantity= [1]
-2024-08-24T16:20:25.580+03:00  INFO 25892 --- [http-nio-8080-exec-8] c.e.p.service.CartServiceImpl            : Cart item: [90] with quantity = [1] removed from cart with id: [22]
-2024-08-24T16:22:16.987+03:00  INFO 25892 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-24T16:22:17.000+03:00  INFO 25892 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-24T16:22:19.318+03:00  INFO 8212 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 8212 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
-2024-08-24T16:22:19.321+03:00  INFO 8212 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
-2024-08-24T16:22:21.474+03:00  INFO 8212 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-24T16:22:21.781+03:00  INFO 8212 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1d1b3620
-2024-08-24T16:22:21.783+03:00  INFO 8212 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-24T16:22:24.253+03:00  WARN 8212 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-08-24T16:22:24.919+03:00  INFO 8212 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 6.174 seconds (process running for 7.006)
-2024-08-24T16:22:33.586+03:00  INFO 8212 --- [http-nio-8080-exec-4] c.e.p.service.CartServiceImpl            : User [hamza@gmail.com] delete his cart
-2024-08-24T16:22:44.178+03:00  INFO 8212 --- [http-nio-8080-exec-7] c.e.p.service.CartServiceImpl            : User [hamza@gmail.com] created a new cart
-2024-08-24T16:22:44.180+03:00  INFO 8212 --- [http-nio-8080-exec-7] c.e.p.service.CartServiceImpl            : Cart item: [91] with quantity = [1] added to cart with id: [23]
-2024-08-24T16:22:45.598+03:00  INFO 8212 --- [http-nio-8080-exec-9] c.e.p.service.CartServiceImpl            : Cart item: [91] with quantity = [1] added to cart with id: [23]
-2024-08-24T16:22:57.226+03:00  INFO 8212 --- [http-nio-8080-exec-5] c.e.p.service.CartServiceImpl            : Cart item: [91] with quantity = [1] removed from cart with id: [23]
-2024-08-24T16:23:01.108+03:00  INFO 8212 --- [http-nio-8080-exec-6] c.e.p.service.CartServiceImpl            : Cart item: [91] with quantity = [1] removed from cart with id: [23]
-2024-08-24T16:24:00.208+03:00  INFO 8212 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-24T16:24:00.213+03:00  INFO 8212 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-24T16:24:05.047+03:00  INFO 26936 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 26936 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
-2024-08-24T16:24:05.049+03:00  INFO 26936 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
-2024-08-24T16:24:07.120+03:00  INFO 26936 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-24T16:24:07.432+03:00  INFO 26936 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@546083d6
-2024-08-24T16:24:07.434+03:00  INFO 26936 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-24T16:24:09.459+03:00  WARN 26936 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-08-24T16:24:10.027+03:00  INFO 26936 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 5.446 seconds (process running for 6.166)
-2024-08-24T16:24:17.753+03:00  INFO 26936 --- [http-nio-8080-exec-3] c.e.p.service.CartServiceImpl            : Cart item: [92] with quantity = [1] added to cart with id: [23]
-2024-08-24T16:24:24.922+03:00  INFO 26936 --- [http-nio-8080-exec-4] c.e.p.service.CartServiceImpl            : Cart item: [92] with quantity = [1] added to cart with id: [23]
-2024-08-24T16:24:54.501+03:00  INFO 26936 --- [http-nio-8080-exec-8] c.e.p.service.CartServiceImpl            : User [hamza@gmail.com] delete his cart
-2024-08-24T16:25:00.487+03:00  INFO 26936 --- [http-nio-8080-exec-7] c.e.p.service.CartServiceImpl            : User [hamza@gmail.com] created a new cart
-2024-08-24T16:25:00.488+03:00  INFO 26936 --- [http-nio-8080-exec-7] c.e.p.service.CartServiceImpl            : Cart item: [93] with quantity = [1] added to cart with id: [24]
-2024-08-24T16:25:02.232+03:00  INFO 26936 --- [http-nio-8080-exec-5] c.e.p.service.CartServiceImpl            : Cart item: [93] with quantity = [1] added to cart with id: [24]
-2024-08-24T16:25:06.185+03:00  INFO 26936 --- [http-nio-8080-exec-9] c.e.p.service.CartServiceImpl            : Cart item: [93] with quantity = [1] added to cart with id: [24]
-2024-08-24T16:25:07.098+03:00  INFO 26936 --- [http-nio-8080-exec-10] c.e.p.service.CartServiceImpl            : Cart item: [93] with quantity = [1] added to cart with id: [24]
-2024-08-24T16:25:14.175+03:00  INFO 26936 --- [http-nio-8080-exec-1] c.e.p.service.CartServiceImpl            : Cart item: [93] with quantity = [1] removed from cart with id: [24]
-2024-08-24T16:25:16.927+03:00  INFO 26936 --- [http-nio-8080-exec-3] c.e.p.service.CartServiceImpl            : Cart item: [93] with quantity = [1] removed from cart with id: [24]
-2024-08-24T16:25:17.853+03:00  INFO 26936 --- [http-nio-8080-exec-4] c.e.p.service.CartServiceImpl            : Cart item: [93] with quantity = [1] removed from cart with id: [24]
-2024-08-24T16:25:23.621+03:00  INFO 26936 --- [http-nio-8080-exec-2] c.e.p.service.CartServiceImpl            : Cart item: [93] with quantity = [1] removed from cart with id: [24]
-2024-08-24T16:25:42.407+03:00  INFO 26936 --- [http-nio-8080-exec-6] c.e.p.service.CartServiceImpl            : User [hamza@gmail.com] delete his cart
-2024-08-24T16:25:49.415+03:00  INFO 26936 --- [http-nio-8080-exec-7] c.e.p.service.CartServiceImpl            : User [hamza@gmail.com] created a new cart
-2024-08-24T16:25:49.417+03:00  INFO 26936 --- [http-nio-8080-exec-7] c.e.p.service.CartServiceImpl            : Cart item: [94] with quantity = [1] added to cart with id: [25]
-2024-08-24T16:26:03.417+03:00  INFO 26936 --- [http-nio-8080-exec-5] c.e.p.service.CartServiceImpl            : Cart item: [94] with quantity = [1] removed from cart with id: [25]
-2024-08-24T16:26:06.965+03:00  INFO 26936 --- [http-nio-8080-exec-9] c.e.p.service.CartServiceImpl            : Cart item: [95] with quantity = [1] added to cart with id: [25]
-2024-08-24T16:26:09.496+03:00  INFO 26936 --- [http-nio-8080-exec-10] c.e.p.service.CartServiceImpl            : Cart item: [95] with quantity = [1] added to cart with id: [25]
-2024-08-24T16:26:10.230+03:00  INFO 26936 --- [http-nio-8080-exec-1] c.e.p.service.CartServiceImpl            : Cart item: [95] with quantity = [1] added to cart with id: [25]
-2024-08-24T16:26:15.160+03:00  INFO 26936 --- [http-nio-8080-exec-3] c.e.p.service.CartServiceImpl            : Cart item: [95] with quantity = [1] removed from cart with id: [25]
-2024-08-24T16:29:52.623+03:00  INFO 26936 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-24T16:29:52.630+03:00  INFO 26936 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-24T16:29:57.042+03:00  INFO 11872 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 11872 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
-2024-08-24T16:29:57.044+03:00  INFO 11872 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
-2024-08-24T16:29:59.062+03:00  INFO 11872 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-24T16:29:59.343+03:00  INFO 11872 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@71e7c13f
-2024-08-24T16:29:59.345+03:00  INFO 11872 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-24T16:30:01.355+03:00  WARN 11872 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-08-24T16:30:01.923+03:00  INFO 11872 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 5.337 seconds (process running for 6.025)
-2024-08-24T16:30:07.562+03:00  INFO 11872 --- [http-nio-8080-exec-1] c.e.p.service.CartServiceImpl            : User [hamza@gmail.com] delete his cart
-2024-08-24T16:30:10.146+03:00  INFO 11872 --- [http-nio-8080-exec-5] c.e.p.service.CartServiceImpl            : User [hamza@gmail.com] created a new cart
-2024-08-24T16:30:10.149+03:00  INFO 11872 --- [http-nio-8080-exec-5] c.e.p.service.CartServiceImpl            : Cart item: [96] with quantity = [1] added to cart with id: [26]
-2024-08-24T16:30:11.090+03:00  INFO 11872 --- [http-nio-8080-exec-7] c.e.p.service.CartServiceImpl            : Cart item: [96] with quantity = [1] added to cart with id: [26]
-2024-08-24T16:30:11.852+03:00  INFO 11872 --- [http-nio-8080-exec-10] c.e.p.service.CartServiceImpl            : Cart item: [96] with quantity = [1] added to cart with id: [26]
-2024-08-24T16:30:18.320+03:00  INFO 11872 --- [http-nio-8080-exec-6] c.e.p.service.CartServiceImpl            : Cart item: [96] with quantity = [1] removed from cart with id: [26]
-2024-08-24T16:30:19.453+03:00  INFO 11872 --- [http-nio-8080-exec-4] c.e.p.service.CartServiceImpl            : Cart item: [96] with quantity = [1] removed from cart with id: [26]
-2024-08-24T16:30:20.673+03:00  INFO 11872 --- [http-nio-8080-exec-8] c.e.p.service.CartServiceImpl            : Cart item: [96] with quantity = [1] removed from cart with id: [26]
-2024-08-24T16:30:39.960+03:00  INFO 11872 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-24T16:30:39.966+03:00  INFO 11872 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-24T16:35:27.601+03:00  INFO 18496 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 18496 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
-2024-08-24T16:35:27.604+03:00  INFO 18496 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
-2024-08-24T16:35:29.667+03:00  INFO 18496 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-24T16:35:29.952+03:00  INFO 18496 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@74a5bef0
-2024-08-24T16:35:29.954+03:00  INFO 18496 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-24T16:35:31.956+03:00  WARN 18496 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-08-24T16:35:32.560+03:00  INFO 18496 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 5.418 seconds (process running for 6.2)
-2024-08-24T16:35:38.723+03:00  INFO 18496 --- [http-nio-8080-exec-1] c.e.p.service.CartServiceImpl            : User [hamza@gmail.com] delete his cart
-2024-08-24T16:35:41.752+03:00  INFO 18496 --- [http-nio-8080-exec-2] c.e.p.service.CartServiceImpl            : User [hamza@gmail.com] created a new cart
-2024-08-24T16:35:41.755+03:00  INFO 18496 --- [http-nio-8080-exec-2] c.e.p.service.CartServiceImpl            : Cart item: [97] with quantity = [1] added to cart with id: [27]
-2024-08-24T16:35:42.930+03:00  INFO 18496 --- [http-nio-8080-exec-4] c.e.p.service.CartServiceImpl            : Cart item: [97] with quantity = [1] added to cart with id: [27]
-2024-08-24T16:35:44.560+03:00  INFO 18496 --- [http-nio-8080-exec-10] c.e.p.service.CartServiceImpl            : Cart item: [97] with quantity = [1] added to cart with id: [27]
-2024-08-24T16:35:50.123+03:00  INFO 18496 --- [http-nio-8080-exec-6] c.e.p.service.CartServiceImpl            : Cart item: [97] with quantity = [1] removed from cart with id: [27]
-2024-08-24T16:35:51.370+03:00  INFO 18496 --- [http-nio-8080-exec-7] c.e.p.service.CartServiceImpl            : Cart item: [97] with quantity = [1] removed from cart with id: [27]
-2024-08-24T16:35:52.506+03:00  INFO 18496 --- [http-nio-8080-exec-8] c.e.p.service.CartServiceImpl            : Cart item: [97] with quantity = [1] removed from cart with id: [27]
-2024-08-24T16:36:01.695+03:00  INFO 18496 --- [http-nio-8080-exec-9] c.e.p.service.CartServiceImpl            : Cart item: [98] with quantity = [5] added to cart with id: [27]
-2024-08-24T16:36:14.244+03:00  INFO 18496 --- [http-nio-8080-exec-5] c.e.p.service.CartServiceImpl            : Cart item: [98] with quantity = [1] removed from cart with id: [27]
-2024-08-24T16:36:15.339+03:00  INFO 18496 --- [http-nio-8080-exec-3] c.e.p.service.CartServiceImpl            : Cart item: [98] with quantity = [1] removed from cart with id: [27]
-2024-08-24T16:36:16.109+03:00  INFO 18496 --- [http-nio-8080-exec-1] c.e.p.service.CartServiceImpl            : Cart item: [98] with quantity = [1] removed from cart with id: [27]
-2024-08-24T16:36:16.878+03:00  INFO 18496 --- [http-nio-8080-exec-2] c.e.p.service.CartServiceImpl            : Cart item: [98] with quantity = [1] removed from cart with id: [27]
-2024-08-24T16:36:17.990+03:00  INFO 18496 --- [http-nio-8080-exec-4] c.e.p.service.CartServiceImpl            : Cart item: [98] with quantity = [1] removed from cart with id: [27]
-2024-08-24T16:38:28.105+03:00  INFO 18496 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-24T16:38:28.113+03:00  INFO 18496 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-24T16:38:33.626+03:00  INFO 15884 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 15884 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
-2024-08-24T16:38:33.628+03:00  INFO 15884 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
-2024-08-24T16:38:35.636+03:00  INFO 15884 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-24T16:38:35.915+03:00  INFO 15884 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@570ed9c
-2024-08-24T16:38:35.917+03:00  INFO 15884 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-24T16:38:37.892+03:00  WARN 15884 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-08-24T16:38:38.452+03:00  INFO 15884 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 5.263 seconds (process running for 6.055)
-2024-08-24T16:38:42.528+03:00  INFO 15884 --- [http-nio-8080-exec-1] c.e.p.service.CartServiceImpl            : Cart item: [99] with quantity = [5] added to cart with id: [27]
-2024-08-24T16:38:51.008+03:00  INFO 15884 --- [http-nio-8080-exec-10] c.e.p.service.CartServiceImpl            : Cart item: [99] with quantity = [1] removed from cart with id: [27]
-2024-08-24T16:38:52.127+03:00  INFO 15884 --- [http-nio-8080-exec-5] c.e.p.service.CartServiceImpl            : Cart item: [99] with quantity = [1] removed from cart with id: [27]
-2024-08-24T16:38:52.940+03:00  INFO 15884 --- [http-nio-8080-exec-6] c.e.p.service.CartServiceImpl            : Cart item: [99] with quantity = [1] removed from cart with id: [27]
-2024-08-24T16:38:54.327+03:00  INFO 15884 --- [http-nio-8080-exec-3] c.e.p.service.CartServiceImpl            : Cart item: [99] with quantity = [1] removed from cart with id: [27]
-2024-08-24T16:38:56.074+03:00  INFO 15884 --- [http-nio-8080-exec-8] c.e.p.service.CartServiceImpl            : Cart item: [99] with quantity = [1] removed from cart with id: [27]
-2024-08-24T16:39:07.146+03:00  INFO 15884 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-24T16:39:07.152+03:00  INFO 15884 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-24T16:41:01.395+03:00  INFO 20520 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 20520 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
-2024-08-24T16:41:01.397+03:00  INFO 20520 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
-2024-08-24T16:41:03.850+03:00  INFO 20520 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-24T16:41:04.312+03:00  INFO 20520 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@56e8a8a0
-2024-08-24T16:41:04.314+03:00  INFO 20520 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-24T16:41:06.661+03:00  WARN 20520 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-08-24T16:41:07.422+03:00  INFO 20520 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 6.574 seconds (process running for 8.165)
-2024-08-24T16:41:10.163+03:00  INFO 20520 --- [http-nio-8080-exec-2] c.e.p.service.CartServiceImpl            : User [hamza@gmail.com] delete his cart
-2024-08-24T16:41:37.259+03:00  INFO 20520 --- [http-nio-8080-exec-3] c.e.p.service.CartServiceImpl            : User [hamza@gmail.com] created a new cart
-2024-08-24T16:41:39.022+03:00  WARN 20520 --- [http-nio-8080-exec-3] c.e.p.service.CartServiceImpl            : User: [hamza@gmail.com] tried to add quantity= [10] of product: [105] while product has only quantity of= [7]
-2024-08-24T16:41:45.266+03:00  INFO 20520 --- [http-nio-8080-exec-5] c.e.p.service.CartServiceImpl            : User [hamza@gmail.com] created a new cart
-2024-08-24T16:41:48.365+03:00  INFO 20520 --- [http-nio-8080-exec-5] c.e.p.service.CartServiceImpl            : Cart item: [100] with quantity = [7] added to cart with id: [29]
-2024-08-24T16:41:58.229+03:00  WARN 20520 --- [http-nio-8080-exec-6] c.e.p.service.CartServiceImpl            : User: [hamza@gmail.com] tried to add quantity= [8] of product: [105] while product has only quantity of= [7]
-2024-08-24T16:42:04.305+03:00  WARN 20520 --- [http-nio-8080-exec-8] c.e.p.service.CartServiceImpl            : User: [hamza@gmail.com] tried to add quantity= [1] of product: [105] while product has only quantity of= [7]
-2024-08-24T16:42:23.385+03:00  INFO 20520 --- [http-nio-8080-exec-9] c.e.p.service.CartServiceImpl            : Cart item: [100] with quantity = [1] removed from cart with id: [29]
-2024-08-24T16:42:31.728+03:00  INFO 20520 --- [http-nio-8080-exec-1] c.e.p.service.CartServiceImpl            : Cart item: [100] with quantity = [6] removed from cart with id: [29]
-2024-08-24T16:42:45.837+03:00  INFO 20520 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-24T16:42:45.842+03:00  INFO 20520 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2024-08-24T16:53:23.073+03:00  INFO 4980 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 4980 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
-2024-08-24T16:53:23.075+03:00  INFO 4980 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
-2024-08-24T16:53:25.009+03:00  INFO 4980 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-08-24T16:53:25.295+03:00  INFO 4980 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@93f15f6
-2024-08-24T16:53:25.297+03:00  INFO 4980 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-08-24T16:53:27.421+03:00  WARN 4980 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-08-24T16:53:28.074+03:00  INFO 4980 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 5.449 seconds (process running for 6.107)
-2024-08-24T16:54:13.095+03:00  INFO 4980 --- [http-nio-8080-exec-2] c.e.p.service.CartServiceImpl            : Cart item: [101] with quantity = [1] added to cart with id: [29]
-2024-08-24T16:54:33.248+03:00  WARN 4980 --- [http-nio-8080-exec-6] c.e.p.service.CartServiceImpl            : User: [hamza@gmail.com] tried to add quantity= [7] of product: [105] while product has only quantity of= [7]
-2024-08-24T16:54:44.986+03:00  INFO 4980 --- [http-nio-8080-exec-10] c.e.p.service.CartServiceImpl            : Cart item: [101] with quantity = [6] added to cart with id: [29]
-2024-08-24T16:55:00.647+03:00  INFO 4980 --- [http-nio-8080-exec-3] c.e.p.service.CartServiceImpl            : Cart item: [101] with quantity = [6] removed from cart with id: [29]
-2024-08-24T16:55:12.546+03:00  WARN 4980 --- [http-nio-8080-exec-7] c.e.p.service.CartServiceImpl            : User: [hamza@gmail.com] tried to remove quantity= [6] of cartItem: [101] while he only has quantity= [1]
-2024-08-24T16:55:22.788+03:00  INFO 4980 --- [http-nio-8080-exec-9] c.e.p.service.CartServiceImpl            : Cart item: [101] with quantity = [1] removed from cart with id: [29]
-2024-08-24T16:55:39.010+03:00  INFO 4980 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2024-08-24T16:55:39.016+03:00  INFO 4980 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-08-26T15:58:41.399+03:00  INFO 14632 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 14632 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
+2024-08-26T15:58:41.410+03:00  INFO 14632 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
+2024-08-26T15:58:44.072+03:00  INFO 14632 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-08-26T15:58:44.386+03:00  INFO 14632 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1aa59698
+2024-08-26T15:58:44.388+03:00  INFO 14632 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-08-26T15:58:46.619+03:00  WARN 14632 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-26T15:58:47.243+03:00  INFO 14632 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 6.785 seconds (process running for 7.608)
+2024-08-26T15:59:47.126+03:00  INFO 14632 --- [http-nio-8080-exec-1] c.e.p.s.impl.AuthenticationServiceImpl   : Registering new user with email:[hamzaalsherif9@gmail.com]
+2024-08-26T15:59:47.288+03:00  INFO 14632 --- [http-nio-8080-exec-1] c.e.p.s.impl.AuthenticationServiceImpl   : Registered new user with email:[hamzaalsherif9@gmail.com]
+2024-08-26T15:59:58.278+03:00  INFO 14632 --- [http-nio-8080-exec-3] c.e.p.service.impl.CartServiceImpl       : User [hamza@gmail.com] created a new cart
+2024-08-26T15:59:58.281+03:00  INFO 14632 --- [http-nio-8080-exec-3] c.e.p.service.impl.CartServiceImpl       : Cart item: [103] with quantity = [6] added to cart with id: [31]
+2024-08-26T16:00:07.584+03:00  INFO 14632 --- [scheduling-1] c.e.p.scheduling.ScheduledTasks          : User hamza azeem's cart has been deleted due to inactivity for 2 hours.
+2024-08-26T16:00:10.228+03:00  INFO 14632 --- [scheduling-1] c.e.p.scheduling.ScheduledTasks          : Email sent to hamza@gmail.com
+2024-08-26T16:01:23.079+03:00  INFO 14632 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-08-26T16:01:23.085+03:00  INFO 14632 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-08-26T16:02:34.624+03:00  INFO 4460 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 4460 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
+2024-08-26T16:02:34.626+03:00  INFO 4460 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
+2024-08-26T16:02:36.617+03:00  INFO 4460 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-08-26T16:02:36.899+03:00  INFO 4460 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@27fc0217
+2024-08-26T16:02:36.901+03:00  INFO 4460 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-08-26T16:02:38.984+03:00  WARN 4460 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-26T16:02:39.714+03:00  INFO 4460 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 5.543 seconds (process running for 6.213)
+2024-08-26T16:02:46.061+03:00  INFO 4460 --- [http-nio-8080-exec-1] c.e.p.service.impl.CartServiceImpl       : User [hamzaalsherif9@gmail.com] created a new cart
+2024-08-26T16:02:46.065+03:00  INFO 4460 --- [http-nio-8080-exec-1] c.e.p.service.impl.CartServiceImpl       : Cart item: [104] with quantity = [6] added to cart with id: [32]
+2024-08-26T16:02:54.911+03:00  INFO 4460 --- [scheduling-1] c.e.p.scheduling.ScheduledTasks          : User hamza azeem's cart has been deleted due to inactivity for 2 hours.
+2024-08-26T16:02:57.104+03:00  INFO 4460 --- [scheduling-1] c.e.p.scheduling.ScheduledTasks          : Email sent to hamzaalsherif9@gmail.com
+2024-08-26T16:03:28.514+03:00  INFO 4460 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-08-26T16:03:28.522+03:00  INFO 4460 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-08-26T16:04:27.446+03:00  INFO 24136 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 24136 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
+2024-08-26T16:04:27.449+03:00  INFO 24136 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
+2024-08-26T16:04:29.780+03:00  INFO 24136 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-08-26T16:04:30.115+03:00  INFO 24136 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@23708f14
+2024-08-26T16:04:30.117+03:00  INFO 24136 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-08-26T16:04:32.481+03:00  WARN 24136 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-26T16:04:33.187+03:00  INFO 24136 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 6.273 seconds (process running for 7.01)
+2024-08-26T16:04:39.240+03:00  INFO 24136 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-08-26T16:04:39.247+03:00  INFO 24136 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

@@ -1,4 +1,4 @@
-package com.example.producttestapi.service;
+package com.example.producttestapi.service.impl;
 
 import com.example.producttestapi.dto.ProductDto;
 import com.example.producttestapi.entities.Category;
@@ -9,6 +9,9 @@ import com.example.producttestapi.exception.ResourceNotFoundException;
 import com.example.producttestapi.mapper.ProductMapper;
 import com.example.producttestapi.model.ProductSearch;
 import com.example.producttestapi.repos.ProductRepo;
+import com.example.producttestapi.service.CategoryService;
+import com.example.producttestapi.service.ProductService;
+import com.example.producttestapi.service.VoucherService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
