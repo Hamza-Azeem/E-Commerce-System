@@ -1,0 +1,37 @@
+2024-08-26T15:58:41.399+03:00  INFO 14632 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 14632 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
+2024-08-26T15:58:41.410+03:00  INFO 14632 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
+2024-08-26T15:58:44.072+03:00  INFO 14632 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-08-26T15:58:44.386+03:00  INFO 14632 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1aa59698
+2024-08-26T15:58:44.388+03:00  INFO 14632 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-08-26T15:58:46.619+03:00  WARN 14632 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-26T15:58:47.243+03:00  INFO 14632 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 6.785 seconds (process running for 7.608)
+2024-08-26T15:59:47.126+03:00  INFO 14632 --- [http-nio-8080-exec-1] c.e.p.s.impl.AuthenticationServiceImpl   : Registering new user with email:[hamzaalsherif9@gmail.com]
+2024-08-26T15:59:47.288+03:00  INFO 14632 --- [http-nio-8080-exec-1] c.e.p.s.impl.AuthenticationServiceImpl   : Registered new user with email:[hamzaalsherif9@gmail.com]
+2024-08-26T15:59:58.278+03:00  INFO 14632 --- [http-nio-8080-exec-3] c.e.p.service.impl.CartServiceImpl       : User [hamza@gmail.com] created a new cart
+2024-08-26T15:59:58.281+03:00  INFO 14632 --- [http-nio-8080-exec-3] c.e.p.service.impl.CartServiceImpl       : Cart item: [103] with quantity = [6] added to cart with id: [31]
+2024-08-26T16:00:07.584+03:00  INFO 14632 --- [scheduling-1] c.e.p.scheduling.ScheduledTasks          : User hamza azeem's cart has been deleted due to inactivity for 2 hours.
+2024-08-26T16:00:10.228+03:00  INFO 14632 --- [scheduling-1] c.e.p.scheduling.ScheduledTasks          : Email sent to hamza@gmail.com
+2024-08-26T16:01:23.079+03:00  INFO 14632 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-08-26T16:01:23.085+03:00  INFO 14632 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-08-26T16:02:34.624+03:00  INFO 4460 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 4460 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
+2024-08-26T16:02:34.626+03:00  INFO 4460 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
+2024-08-26T16:02:36.617+03:00  INFO 4460 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-08-26T16:02:36.899+03:00  INFO 4460 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@27fc0217
+2024-08-26T16:02:36.901+03:00  INFO 4460 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-08-26T16:02:38.984+03:00  WARN 4460 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-26T16:02:39.714+03:00  INFO 4460 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 5.543 seconds (process running for 6.213)
+2024-08-26T16:02:46.061+03:00  INFO 4460 --- [http-nio-8080-exec-1] c.e.p.service.impl.CartServiceImpl       : User [hamzaalsherif9@gmail.com] created a new cart
+2024-08-26T16:02:46.065+03:00  INFO 4460 --- [http-nio-8080-exec-1] c.e.p.service.impl.CartServiceImpl       : Cart item: [104] with quantity = [6] added to cart with id: [32]
+2024-08-26T16:02:54.911+03:00  INFO 4460 --- [scheduling-1] c.e.p.scheduling.ScheduledTasks          : User hamza azeem's cart has been deleted due to inactivity for 2 hours.
+2024-08-26T16:02:57.104+03:00  INFO 4460 --- [scheduling-1] c.e.p.scheduling.ScheduledTasks          : Email sent to hamzaalsherif9@gmail.com
+2024-08-26T16:03:28.514+03:00  INFO 4460 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-08-26T16:03:28.522+03:00  INFO 4460 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-08-26T16:04:27.446+03:00  INFO 24136 --- [main] c.e.p.ProductTestApiApplication          : Starting ProductTestApiApplication using Java 21 with PID 24136 (D:\spring-boot\e-commerce\target\classes started by Lenovo in D:\spring-boot\e-commerce)
+2024-08-26T16:04:27.449+03:00  INFO 24136 --- [main] c.e.p.ProductTestApiApplication          : No active profile set, falling back to 1 default profile: "default"
+2024-08-26T16:04:29.780+03:00  INFO 24136 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-08-26T16:04:30.115+03:00  INFO 24136 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@23708f14
+2024-08-26T16:04:30.117+03:00  INFO 24136 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-08-26T16:04:32.481+03:00  WARN 24136 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-26T16:04:33.187+03:00  INFO 24136 --- [main] c.e.p.ProductTestApiApplication          : Started ProductTestApiApplication in 6.273 seconds (process running for 7.01)
+2024-08-26T16:04:39.240+03:00  INFO 24136 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-08-26T16:04:39.247+03:00  INFO 24136 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
