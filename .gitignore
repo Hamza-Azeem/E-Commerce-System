@@ -33,4 +33,4 @@ build/
 .vscode/
 
 # Ignore secrets.properties
-email-microservice/email-microservice/src/main/resources/secrets.properties
+email-microservice/src/main/resources/secrets.properties

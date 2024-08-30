@@ -1,17 +1,18 @@
-package com.example.producttestapi.model;
+package com.e_commerce.email_microservice;
 
 import lombok.*;
 
-@Setter
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Builder
-public class EmailRequest {
+public class NotificationEmail {
     private String to;
     private String from;
     private String subject;
     private String body;
     private String firstname;
     private String senderName;
+
 }
