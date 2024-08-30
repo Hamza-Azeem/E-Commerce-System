@@ -42,7 +42,7 @@ public class EmailService {
     }
 
     private String readFile() throws IOException {
-        Path path = Paths.get("D:\\spring-boot\\e-commerce\\email-microservice\\email-microservice\\src\\main\\resources\\templates\\emailTemplate.html");
+        Path path = Paths.get("D:\\spring-boot\\e-commerce\\email-microservice\\src\\main\\resources\\templates\\emailTemplate.html");
         return Files.readString(path, StandardCharsets.UTF_8);
     }
 

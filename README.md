@@ -25,6 +25,27 @@ To run the application using Spring Boot and MySQL, follow these steps:
 
 After completing these steps, the application should be up and running.
 
+## **Application Architecture**
+
+The application initially followed a monolithic architecture, where all components were integrated into a single system. As the project evolved, the email service was refactored using a microservices architecture, enhancing modularity and scalability in handling email communications with users.
+
+### **Microservice Architecture**
+
+- **Configuration Server**:
+    - Centralized location where the configuration of all services is managed, enabling easier modifications and preventing decoupling.
+
+- **Discovery Server**:
+    - Allows all microservices in the project to register themselves, facilitating communication and enabling services to discover one another.
+
+- **API Gateway**:
+    - Acts as an entry point for all incoming requests, handling authentication and authorization while routing requests to the appropriate services. It also implements the circuit breaker pattern for resilience.
+
+- **Email Service**:
+    - A dedicated service responsible for sending emails to users of the e-commerce application.
+
+- **E-Commerce**:
+    - An N-tier application that handles user information, products, categories, vouchers, and carts.
+
 ## **Application Initialization**
 
 - Upon the first start of the application, a default user is created:
@@ -103,3 +124,8 @@ The application uses **MySQL** as the database to persist details about books, p
 ## **Caching**
 
 - A caching mechanism is implemented to ensure fast data retrieval.
+
+## **Personal info**
+
+- **Name:** Hamza Azeem
+- **Email:** hamzaalsherif9@gmail.com
