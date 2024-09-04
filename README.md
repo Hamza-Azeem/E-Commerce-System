@@ -125,7 +125,7 @@ The application uses **MySQL** as the database to persist details about books, p
 
 - A caching mechanism is implemented to ensure fast data retrieval.
 
-## **Personal info**
+## **Contact**
 
 - **Name:** Hamza Azeem
 - **Email:** hamzaalsherif9@gmail.com
