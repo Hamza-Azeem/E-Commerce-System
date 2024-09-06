@@ -15,8 +15,11 @@ import java.io.IOException;
 public class EmailController {
     private final EmailService emailService;
 
-    @PostMapping("/send")
-    public void sendEmail(@RequestBody NotificationEmail notificationEmail) throws MessagingException, IOException {
-        emailService.sendHtmlEmail(notificationEmail);
+    @PostMapping("/cart/send")
+    public void sendCartEmail(@RequestBody NotificationEmail notificationEmail) throws MessagingException, IOException {
+        emailService.sendHtmlCartEmail(notificationEmail);
+    }@PostMapping("/successful/registration/send")
+    public void sendSuccessfulRegistrationEmail(@RequestBody NotificationEmail notificationEmail) throws MessagingException, IOException {
+        emailService.sendHtmlRegistrationEmail(notificationEmail);
     }
 }

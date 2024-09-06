@@ -24,7 +24,7 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests(
           auth -> {
               auth.requestMatchers(
-                      "/auth/**",
+                      "/e-commerce/auth/**",
                       "/v3/api-docs",
                       "/v3/api-docs/**",
                       "/swagger-ui.html"
@@ -32,9 +32,9 @@ public class WebSecurityConfig {
               auth.requestMatchers(HttpMethod.GET, "/**").hasAnyAuthority("ADMIN","USER","MANAGER")
                       .requestMatchers(HttpMethod.POST, "/cart/add-item").hasAnyAuthority("ADMIN","USER","MANAGER")
                       .requestMatchers(HttpMethod.PUT, "/cart/update-item").hasAnyAuthority("ADMIN","USER","MANAGER")
-                      .requestMatchers(HttpMethod.POST, "/**").hasAnyAuthority("ADMIN","MANAGER")
+                      .requestMatchers(HttpMethod.POST, "/e-commerce/auth/**").permitAll()
                       .requestMatchers(HttpMethod.DELETE,"/**").hasAnyAuthority("MANAGER");
-              auth.anyRequest().permitAll();
+              auth.anyRequest().authenticated();
           }
         );
         return http.build();

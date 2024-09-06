@@ -110,7 +110,7 @@ The application includes Swagger for easy testing and interaction with the API e
 
 ## **Data Storage**
 
-The application uses **MySQL** as the database to persist details about books, patrons, users, roles and borrowing records. Relationships between entities are properly set up to maintain data integrity.
+The application uses **MySQL** as the database to persist details about products, categories, users, carts, cartItems and vouchers. Relationships between entities are properly set up to maintain data integrity.
 
 ## **Validation and Error Handling**
 

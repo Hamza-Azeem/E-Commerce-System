@@ -9,10 +9,6 @@ import lombok.*;
 @Builder
 public class NotificationEmail {
     private String to;
-    private String from;
-    private String subject;
-    private String body;
     private String firstname;
-    private String senderName;
 
 }

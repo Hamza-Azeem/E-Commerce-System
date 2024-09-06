@@ -1,5 +1,6 @@
 package com.example.producttestapi.service.impl;
 
+import com.example.producttestapi.client.EmailClient;
 import com.example.producttestapi.dto.CartDto;
 import com.example.producttestapi.entities.Cart;
 import com.example.producttestapi.entities.CartItem;
@@ -11,6 +12,7 @@ import com.example.producttestapi.model.BuyingRequest;
 import com.example.producttestapi.repos.CartRepo;
 import com.example.producttestapi.service.*;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -26,6 +28,7 @@ import java.util.Optional;
 import static com.example.producttestapi.mapper.CartMapper.convertToCartDto;
 
 @Service
+@RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
     private final CartRepo cartRepo;
     private final UserService userService;
@@ -33,14 +36,6 @@ public class CartServiceImpl implements CartService {
     private final ProductService productService;
     private final VoucherService voucherService;
     private final Logger logger = LoggerFactory.getLogger(CartServiceImpl.class);
-
-    public CartServiceImpl(CartRepo cartRepo, UserService userService, CartItemService cartItemService, ProductService productService, VoucherService voucherService) {
-        this.cartRepo = cartRepo;
-        this.userService = userService;
-        this.cartItemService = cartItemService;
-        this.productService = productService;
-        this.voucherService = voucherService;
-    }
 
     @Override
     public void saveCart(Cart cart) {

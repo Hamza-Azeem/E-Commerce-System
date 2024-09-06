@@ -33,12 +33,9 @@ public class ScheduledTasks {
             logger.info("User {}'s cart has been deleted due to inactivity for 2 hours.", user.getFirstName()+" "+user.getLastName());
             EmailRequest emailRequest = EmailRequest.builder()
                     .to(user.getEmail())
-                    .body("Your cart in springboot e-commerce application has been deleted due to inactivity for 2 hours." +
-                            "Thanks for your understanding.")
                     .firstname(user.getFirstName())
-                    .senderName("Developers Team")
                     .build();
-            emailClient.sendEmail(emailRequest);
+            emailClient.sendCartEmail(emailRequest);
         }
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(name = "email-microservice", url = "${spring.config.email-url}")
 public interface EmailClient {
-    @PostMapping("/send")
-    void sendEmail(@RequestBody EmailRequest emailRequest);
+    @PostMapping("/cart/send")
+    void sendCartEmail(@RequestBody EmailRequest emailRequest);
+    @PostMapping("/successful/registration/send")
+    void sendRegistrationEmail(@RequestBody EmailRequest emailRequest);
 }
